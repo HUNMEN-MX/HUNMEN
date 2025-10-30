@@ -9,7 +9,7 @@ html, body {
   scroll-behavior: auto;
   height: 100%;
   overflow-y: scroll;
-  -webkit-text-size-adjust: 100%; /* Evita que Safari cambie tamaño de texto */
+  -webkit-text-size-adjust: 100%;
 }
 
 /* ===== Scroll snap solo para móviles ===== */
@@ -20,12 +20,6 @@ html, body {
   }
 }
 
-
-html {
-  -webkit-text-size-adjust: 100%; /* Evita que Safari reduzca o aumente texto automáticamente */
-}
-
-
 /* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
 main {
   display: flex;
@@ -34,7 +28,7 @@ main {
 
 .diapositiva {
   scroll-snap-align: start;
-  height: 100vh; /* Cada sección ocupa toda la pantalla */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,7 +64,7 @@ main {
   color: white;
   font-weight: 600;
   opacity: 0;
-  transition: opacity 4s ease, transform 0.3s, background 0.3s, filter 0.3s;
+  transition: opacity 4s ease, transform 0.3s, background 0.3s;
 }
 
 .boton:hover {
@@ -80,21 +74,18 @@ main {
 
 /* ======================== ANIMACIÓN DE ENTRADA ======================== */
 .diapositiva.visible .titulo,
-.diapositiva.visible .descripcion {
+.diapositiva.visible .descripcion,
+.diapositiva.visible .boton {
   opacity: 1;
   transform: translateY(0);
 }
 
-.diapositiva.visible .boton {
-  opacity: 1;
-}
-
-/* ======================== FLECHA ======================== */
+/* ======================== FLECHA ABAJO ======================== */
 .flecha {
   position: absolute;
   bottom: 20px;
   font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
+  color: #00bfff;
   animation: moverFlecha 1.5s infinite alternate;
 }
 
@@ -103,12 +94,12 @@ main {
   to { transform: translateY(10px); }
 }
 
-/* ==================== FLECHA ARRIBA ================== */
+/* ======================== FLECHA ARRIBA ======================== */
 .flecha-arriba {
   position: absolute;
   bottom: 20px;
   font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
+  color: #00bfff;
   animation: moverFlechaArriba 1.5s infinite alternate;
 }
 
@@ -141,28 +132,22 @@ main {
   background: #86008f;
 }
 
-/**/
-/* --- INICIA DIAPOSITIVA FINAL (ESTILO ENVIOS) --- */
+/* ======================== DIAPOSITIVA FINAL ======================== */
 .diapositiva.final {
-  /* ⚠️ Mantiene tus valores originales */
   height: auto;
   min-height: 73vh;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-
-  /* ✅ Sobrescribe solo lo necesario */
-  flex-direction: row !important; /* fuerza fila horizontal */
+  flex-direction: row !important;
   text-align: left;
   gap: 3rem;
 }
 
-/* --- Texto --- */
 .diapositiva.final .contenido {
-  flex: 0 0 65%; /* ✅ en lugar de flex: 1; max-width: 65% */
+  flex: 0 0 65%;
   padding-right: 2rem;
 }
-
 
 .diapositiva.final .titulo {
   font-size: 2.6rem;
@@ -180,7 +165,7 @@ main {
   margin-left: 200px;
 }
 
-/* --- Imagen a la derecha --- */
+/* Imagen derecha */
 .diapositiva.final .imagen-derecha {
   flex: 1;
   display: flex;
@@ -195,49 +180,28 @@ main {
   border-radius: 16px;
 }
 
-/*TERMINA DIAPOSITIVA FINAL*/
-
-
-/* ======================== COLORES DE SECCIONES ======================== */
-
-.portada {
-  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.cera-de-soya { background: #f9f7e0; }
-.regalos { background: #F8C1E3; }     /* rosa pastel kawaii */
-.herbolaria { background: #CFF8D6; }  /* verde menta suave */
-.adornos { background: #D9C6F7; }     /* lila pastel delicado */
-.pomadas { background: #FFE0ED; }     /* rosa bebé ligero */
-.shampoo { background: #CFF4F4; }     /* azul celeste pastel */
-.final { background: #f9f7e0; }
-
-
-/* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
+/* ========== RESPONSIVE ÚLTIMA DIAPOSITIVA ========== */
 @media (max-width: 768px) {
+
   .diapositiva.final {
     flex-direction: column !important;
     align-items: center;
     text-align: center;
     justify-content: flex-start;
-    padding: 7rem 0 0; /* 🔹 da aire arriba pero conserva espacio para el footer */
-    min-height: 76vh; /* ⚠️ se mantiene la altura para funcionar con el footer */
+    padding: 7rem 0 0;
+    min-height: 76vh;
   }
 
-  /* --- Texto --- */
   .diapositiva.final .contenido {
     flex: none;
     max-width: 90%;
+    margin: 0 auto;
     padding: 0;
-    margin: 0 auto 0 auto; /* 🔹 pequeño espacio entre texto e imagen */
   }
 
   .diapositiva.final .titulo {
     font-size: 1.8rem;
-    margin: 0 0 0 0;
+    margin: 0;
     text-align: center;
   }
 
@@ -248,19 +212,30 @@ main {
     text-align: center;
   }
 
-  /* --- Imagen --- */
   .diapositiva.final .imagen-derecha {
-    flex: none;
-    justify-content: center;
-    align-items: center;
     margin: 0;
-    margin-top: 0.5rem; /* 🔹 acerca más la imagen al texto */
+    margin-top: 0.5rem;
+    justify-content: center;
   }
 
   .diapositiva.final .imagen-derecha img {
     width: 50%;
     max-width: 320px;
-    height: auto;
   }
 }
 
+/* ======================== COLORES DE SECCIONES ======================== */
+.portada {
+  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cera-de-soya { background: #f9f7e0; }
+.regalos       { background: #F8C1E3; }
+.herbolaria    { background: #CFF8D6; }
+.adornos       { background: #D9C6F7; }
+.pomadas       { background: #FFE0ED; }
+.shampoo       { background: #CFF4F4; }
+.final         { background: #f9f7e0; }
