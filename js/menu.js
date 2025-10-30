@@ -1,15 +1,16 @@
 /* ======================== MENÚ LATERAL FLOTANTE ======================== */
 (function () {
+
   function initMenu() {
     const btnMenu = document.getElementById("btn-menu");
     const menuLateral = document.getElementById("menu-lateral");
     const cerrarMenu = document.getElementById("cerrar-menu");
     const overlay = document.getElementById("overlay");
 
-    // Si no existen aún (porque el header no está cargado), salir
+    // Evitar fallos si el header aún no está cargado
     if (!btnMenu || !menuLateral || !cerrarMenu || !overlay) return;
 
-    // Evitar reinicializar si ya fue configurado
+    // Evitar doble inicialización
     if (btnMenu.dataset.inited === "true") return;
     btnMenu.dataset.inited = "true";
 
@@ -17,14 +18,18 @@
     btnMenu.addEventListener("click", () => {
       menuLateral.classList.add("activo");
       overlay.classList.add("activo");
-      document.body.style.overflow = "hidden"; // Bloquear scroll
+
+      // Bloquear scroll (más compatible en móviles)
+      document.body.style.overflow = "hidden";
       document.documentElement.dataset.menuAbierto = "true";
     });
 
-    // --- Cerrar menú ---
+    // --- Función para cerrar menú ---
     function cerrar() {
       menuLateral.classList.remove("activo");
       overlay.classList.remove("activo");
+
+      // Restaurar scroll
       document.body.style.overflow = "";
       document.documentElement.dataset.menuAbierto = "false";
     }
@@ -33,6 +38,7 @@
     overlay.addEventListener("click", cerrar);
   }
 
-  // Hacer disponible globalmente
+  // Disponible para cuando el header ya esté cargado
   window.initMenu = initMenu;
+
 })();

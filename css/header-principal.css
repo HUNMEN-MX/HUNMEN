@@ -112,14 +112,3 @@
 .menu img:hover {
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.6));
 }
-/* ==== FIX SAFARI: arregla sombras e iconos cortados al cargar ==== */
-header,
-.header-principal,
-.redes-sociales,
-.iconos-redes {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
