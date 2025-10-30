@@ -1,4 +1,5 @@
-/* ======================== CONTROL DE SCROLL SUAVE ======================== */
+/* ======================== SCROLL SUAVE Y CONTROLADO ======================== */
+
 const secciones = document.querySelectorAll('.diapositiva');
 let indice = 0;
 let scrolling = false;  // Bloquea scroll mientras se mueve
@@ -25,8 +26,8 @@ const observer = new IntersectionObserver((entradas) => {
 
 secciones.forEach(sec => observer.observe(sec));
 
-/* ======================== SCROLL ANIMADO ======================== */
-function scrollSuaveA(seccion, duracion = 800, callback) {
+/* ======================== ANIMACIÓN DE SCROLL ======================== */
+function scrollSuaveA(seccion, duracion = 800) {
   const destino = seccion.offsetTop;
   const inicio = window.scrollY;
   const distancia = destino - inicio;
@@ -37,6 +38,7 @@ function scrollSuaveA(seccion, duracion = 800, callback) {
     const tiempoPasado = currentTime - startTime;
     const progreso = Math.min(tiempoPasado / duracion, 1);
 
+    // Función de easing: easeInOutQuad
     const ease = progreso < 0.5
       ? 2 * progreso * progreso
       : -1 + (4 - 2 * progreso) * progreso;
@@ -46,7 +48,7 @@ function scrollSuaveA(seccion, duracion = 800, callback) {
     if (progreso < 1) {
       requestAnimationFrame(animacion);
     } else {
-      if (callback) callback();
+      scrolling = false;
     }
   }
 
@@ -54,10 +56,11 @@ function scrollSuaveA(seccion, duracion = 800, callback) {
 }
 
 /* ======================== IR A SECCIÓN ======================== */
-function irASeccion(i, callback) {
+function irASeccion(i, duracion = 800) {
   if (i < 0 || i >= secciones.length) return;
   if (scrolling) return;
 
+  // cerrar menú si abierto
   if (menuAbierto()) {
     document.getElementById('menu-lateral')?.classList.remove('activo');
     document.getElementById('overlay')?.classList.remove('activo');
@@ -67,34 +70,28 @@ function irASeccion(i, callback) {
 
   scrolling = true;
   indice = i;
-  scrollSuaveA(secciones[i], 800, () => {
-    scrolling = false;
-    if (callback) callback();
-  });
+  scrollSuaveA(secciones[i], duracion);
 }
 
 /* ======================== SCROLL CON MOUSE ======================== */
 window.addEventListener('wheel', e => {
-  if (scrolling) return;
-  if (menuAbierto()) return;
+  if (scrolling || menuAbierto()) return;
 
-  if (e.deltaY > 0) {
-    irASeccion(indice + 1);
-  } else if (e.deltaY < 0) {
-    irASeccion(indice - 1);
-  }
+  // ignorar micro-scrolls muy pequeños
+  if (Math.abs(e.deltaY) < 50) return;
+
+  const duracion = 1200; // más lento que teclado para suavizar
+  if (e.deltaY > 0) irASeccion(indice + 1, duracion);
+  else if (e.deltaY < 0) irASeccion(indice - 1, duracion);
 });
 
 /* ======================== SCROLL CON TECLAS ======================== */
 window.addEventListener('keydown', e => {
-  if (scrolling) return;
-  if (menuAbierto()) return;
+  if (scrolling || menuAbierto()) return;
 
-  if (e.key === 'ArrowDown') {
-    irASeccion(indice + 1);
-  } else if (e.key === 'ArrowUp') {
-    irASeccion(indice - 1);
-  }
+  const duracion = 800; // normal
+  if (e.key === 'ArrowDown') irASeccion(indice + 1, duracion);
+  else if (e.key === 'ArrowUp') irASeccion(indice - 1, duracion);
 });
 
 /* ======================== SCROLL CON INDICADORES LATERALES ======================== */
@@ -110,27 +107,21 @@ document.querySelectorAll('.punto').forEach(punto => {
 /* ======================== SCROLL EN TOUCH (MÓVILES) ======================== */
 let touchStartY = 0;
 let touchEndY = 0;
-let scrollingTouch = false; // bloquea scroll hasta terminar animación
 
 document.addEventListener('touchstart', e => {
-  if (scrollingTouch) return;
   touchStartY = e.touches[0].clientY;
 });
 
 document.addEventListener('touchend', e => {
-  if (scrollingTouch) return;
-  if (menuAbierto()) return;
+  if (scrolling || menuAbierto()) return;
 
   touchEndY = e.changedTouches[0].clientY;
   const diff = touchStartY - touchEndY;
 
-  const SWIPE_THRESHOLD = 30; // mínima distancia para considerar swipe
-
-  if (diff > SWIPE_THRESHOLD) {
-    scrollingTouch = true;
-    irASeccion(indice + 1, () => scrollingTouch = false);
-  } else if (diff < -SWIPE_THRESHOLD) {
-    scrollingTouch = true;
-    irASeccion(indice - 1, () => scrollingTouch = false);
+  // solo pasar una diapositiva por swipe, mínimo 50px
+  if (diff > 50) {
+    irASeccion(indice + 1, 1200);
+  } else if (diff < -50) {
+    irASeccion(indice - 1, 1200);
   }
 });
