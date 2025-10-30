@@ -13,6 +13,7 @@ body {
 
 html {
   scroll-behavior: auto; /* quitamos smooth global */
+  -webkit-text-size-adjust: 100%; /* Evita que Safari reduzca o aumente texto automáticamente */
 }
 
 /* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
