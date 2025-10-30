@@ -106,3 +106,28 @@ document.querySelectorAll('.punto').forEach(punto => {
     irASeccion(idx);
   });
 });
+
+/* ======================== SCROLL EN TOUCH (MÓVILES) ======================== */
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchend', e => {
+  if (scrolling) return;
+  if (menuAbierto()) return;
+
+  touchEndY = e.changedTouches[0].clientY;
+  const diff = touchStartY - touchEndY;
+
+  if (diff > 50) {
+    // swipe hacia arriba → siguiente diapositiva
+    irASeccion(indice + 1);
+  } else if (diff < -50) {
+    // swipe hacia abajo → diapositiva anterior
+    irASeccion(indice - 1);
+  }
+});
+
