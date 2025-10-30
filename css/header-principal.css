@@ -94,10 +94,12 @@
   .menu {
     display: inline-flex;
     align-items: center;
+       height: 30px;
   }
 
   .logo {
     order: 1;
+    margin-top: 20px;
   }
 
   .menu {
