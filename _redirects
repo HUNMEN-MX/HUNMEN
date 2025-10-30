@@ -1,0 +1,6 @@
+# Redirigir www → sin www
+https://www.hunmen.com.mx/* https://hunmen.com.mx/:splat 301!
+
+# Redirigir HTTP → HTTPS
+http://hunmen.com.mx/* https://hunmen.com.mx/:splat 301!
+http://www.hunmen.com.mx/* https://hunmen.com.mx/:splat 301!
