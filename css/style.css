@@ -6,11 +6,20 @@
 }
 
 html, body {
-  scroll-behavior: auto; /* seguimos controlando animación desde JS */
-  scroll-snap-type: y mandatory; /* snap para móviles y scroll manual */
+  scroll-behavior: auto;
   height: 100%;
   overflow-y: scroll;
+  -webkit-text-size-adjust: 100%; /* Evita que Safari cambie tamaño de texto */
 }
+
+/* ===== Scroll snap solo para móviles ===== */
+@media (max-width: 768px) {
+  html, body {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+}
+
 
 html {
   -webkit-text-size-adjust: 100%; /* Evita que Safari reduzca o aumente texto automáticamente */
