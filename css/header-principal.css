@@ -83,7 +83,6 @@
 
 @media (max-width: 768px) {
 
-  /* Header más compacto y flexible */
   .header-principal {
     display: flex;
     flex-direction: column;
@@ -91,7 +90,6 @@
     padding: 0.5rem 1rem;
   }
 
-  /* LOGO + MENÚ en la misma fila */
   .logo,
   .menu {
     display: inline-flex;
@@ -104,10 +102,9 @@
 
   .menu {
     order: 1;
-    margin-left: auto; /* se alinea a la derecha */
+    margin-left: auto;
   }
 
-  /* Parámetros visuales */
   .logo img {
     height: 70px;
   }
@@ -116,15 +113,12 @@
     height: 40px;
   }
 
-  /* Redes debajo del logo y menú */
   .redes-header {
     order: 3;
     display: flex;
     justify-content: left;
     gap: 0.5rem;
     margin-top: 0.5rem;
-
-    /* Ajuste para que no se peguen al borde */
     margin-left: 60px;
     width: calc(100% - 60px);
   }
