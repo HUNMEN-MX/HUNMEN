@@ -1,4 +1,4 @@
-.header-general {
+.header-principal {
   width: 100%;
   position: fixed;
   top: 0;
@@ -7,14 +7,9 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 1rem 2rem;
-  background-image: url("../imagenes/Fondos_Principales/Portada_Fondo.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: transparent;
   z-index: 1000;
   transition: background 0.4s ease, box-shadow 0.4s ease;
-  /* ✅ Sombra para dar efecto de profundidad */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Redes sociales PC */
@@ -26,10 +21,10 @@
 .redes-header img {
   height: 50px;
   width: 50px;
-  transition: transform 0.6s, filter 0.3s;
+  transition: transform 0.3s, filter 0.3s;
 }
 .redes-header img:hover {
-  transform: scale(1.08);
+  transform: scale(1.2);
   filter: brightness(1);
 }
 
@@ -52,16 +47,16 @@
 .menu img {
   height: 50px;
   cursor: pointer;
-  transition: transform 0.4s;
+  transition: transform 0.3s;
 }
 .menu img:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 /* ===== RESPONSIVE MÓVIL ===== */
 @media (max-width: 768px) {
   /* Header en columna para filas */
-  .header-general {
+  .header-principal {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -117,6 +112,3 @@
 .menu img:hover {
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.6));
 }
-
-
-
