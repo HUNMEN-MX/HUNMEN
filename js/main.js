@@ -4,10 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const headerHtml = await fetchAny([
         '/componentes/header-principal.html',
-        ' /componentes/header-principal.html'.trim(),
-        '/componentes/header-principal.htm',
-        'componentes/header-principal.html',
-        '../componentes/header-principal.html'
+        '/componentes/header-principal.html'.trim(),
       ], 'header-principal.html');
 
       if (headerHtml) {
