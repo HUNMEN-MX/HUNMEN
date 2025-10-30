@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ============================================================
-   REINTENTO PARA ESPERAR A menu.js
+   ESPERAR A QUE menu.js TERMINE DE CARGAR
    ============================================================ */
 function intentarInicializarMenu(intentos = 0) {
-
   if (typeof window.initMenu === 'function') {
     window.initMenu();
     return;
