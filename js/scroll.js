@@ -1,13 +1,15 @@
+/* ======================== CONTROL DE SCROLL SUAVE ======================== */
 const secciones = document.querySelectorAll('.diapositiva');
 let indice = 0;
 let scrolling = false;  // Bloquea scroll mientras se mueve
 
+// --- Si el menú está abierto, no permitir scroll entre secciones ---
 function menuAbierto() {
   return document.documentElement.dataset.menuAbierto === "true"
          || document.getElementById('menu-lateral')?.classList.contains('activo');
 }
 
-/* ======================== ANIMACIONES E INDICADORES ======================== */
+/* ======================== ANIMACIONES Y INDICADORES ======================== */
 const opciones = { threshold: 0.5 };
 const observer = new IntersectionObserver((entradas) => {
   entradas.forEach(entrada => {
@@ -16,7 +18,7 @@ const observer = new IntersectionObserver((entradas) => {
 
       const id = entrada.target.id;
       document.querySelectorAll('.punto').forEach(p => p.classList.remove('activo'));
-      document.querySelector(`.punto[data-seccion="${id}"]`).classList.add('activo');
+      document.querySelector(`.punto[data-seccion="${id}"]`)?.classList.add('activo');
     }
   });
 }, opciones);
@@ -24,7 +26,7 @@ const observer = new IntersectionObserver((entradas) => {
 secciones.forEach(sec => observer.observe(sec));
 
 /* ======================== SCROLL ANIMADO ======================== */
-function scrollSuaveA(seccion, duracion = 800) {
+function scrollSuaveA(seccion, duracion = 800, callback) {
   const destino = seccion.offsetTop;
   const inicio = window.scrollY;
   const distancia = destino - inicio;
@@ -35,7 +37,6 @@ function scrollSuaveA(seccion, duracion = 800) {
     const tiempoPasado = currentTime - startTime;
     const progreso = Math.min(tiempoPasado / duracion, 1);
 
-    // easing
     const ease = progreso < 0.5
       ? 2 * progreso * progreso
       : -1 + (4 - 2 * progreso) * progreso;
@@ -45,9 +46,7 @@ function scrollSuaveA(seccion, duracion = 800) {
     if (progreso < 1) {
       requestAnimationFrame(animacion);
     } else {
-      // Forzar posición exacta al final para 100% diapositiva
-      window.scrollTo(0, destino);
-      scrolling = false;
+      if (callback) callback();
     }
   }
 
@@ -55,7 +54,7 @@ function scrollSuaveA(seccion, duracion = 800) {
 }
 
 /* ======================== IR A SECCIÓN ======================== */
-function irASeccion(i) {
+function irASeccion(i, callback) {
   if (i < 0 || i >= secciones.length) return;
   if (scrolling) return;
 
@@ -68,7 +67,10 @@ function irASeccion(i) {
 
   scrolling = true;
   indice = i;
-  scrollSuaveA(secciones[i], 800);
+  scrollSuaveA(secciones[i], 800, () => {
+    scrolling = false;
+    if (callback) callback();
+  });
 }
 
 /* ======================== SCROLL CON MOUSE ======================== */
@@ -76,8 +78,11 @@ window.addEventListener('wheel', e => {
   if (scrolling) return;
   if (menuAbierto()) return;
 
-  if (e.deltaY > 0) irASeccion(indice + 1);
-  else if (e.deltaY < 0) irASeccion(indice - 1);
+  if (e.deltaY > 0) {
+    irASeccion(indice + 1);
+  } else if (e.deltaY < 0) {
+    irASeccion(indice - 1);
+  }
 });
 
 /* ======================== SCROLL CON TECLAS ======================== */
@@ -85,11 +90,14 @@ window.addEventListener('keydown', e => {
   if (scrolling) return;
   if (menuAbierto()) return;
 
-  if (e.key === 'ArrowDown') irASeccion(indice + 1);
-  else if (e.key === 'ArrowUp') irASeccion(indice - 1);
+  if (e.key === 'ArrowDown') {
+    irASeccion(indice + 1);
+  } else if (e.key === 'ArrowUp') {
+    irASeccion(indice - 1);
+  }
 });
 
-/* ======================== SCROLL CON INDICADORES ======================== */
+/* ======================== SCROLL CON INDICADORES LATERALES ======================== */
 document.querySelectorAll('.punto').forEach(punto => {
   punto.addEventListener('click', () => {
     const id = punto.getAttribute('data-seccion');
@@ -102,18 +110,27 @@ document.querySelectorAll('.punto').forEach(punto => {
 /* ======================== SCROLL EN TOUCH (MÓVILES) ======================== */
 let touchStartY = 0;
 let touchEndY = 0;
+let scrollingTouch = false; // bloquea scroll hasta terminar animación
 
 document.addEventListener('touchstart', e => {
+  if (scrollingTouch) return;
   touchStartY = e.touches[0].clientY;
 });
 
 document.addEventListener('touchend', e => {
-  if (scrolling) return;
+  if (scrollingTouch) return;
   if (menuAbierto()) return;
 
   touchEndY = e.changedTouches[0].clientY;
   const diff = touchStartY - touchEndY;
 
-  if (diff > 50) irASeccion(indice + 1);
-  else if (diff < -50) irASeccion(indice - 1);
+  const SWIPE_THRESHOLD = 30; // mínima distancia para considerar swipe
+
+  if (diff > SWIPE_THRESHOLD) {
+    scrollingTouch = true;
+    irASeccion(indice + 1, () => scrollingTouch = false);
+  } else if (diff < -SWIPE_THRESHOLD) {
+    scrollingTouch = true;
+    irASeccion(indice - 1, () => scrollingTouch = false);
+  }
 });
