@@ -1,2 +1,0 @@
-# HUNMEN
-Productos artesanales.
