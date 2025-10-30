@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ===== METADATOS SEO ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Hunmen | Kits de regalo</title>
+  <meta name="description" content="Hunmen - contacto">
+  <meta name="keywords" content="Hunmen, contacto, aviso de privacidad">
+  <meta name="author" content="Hunmen">
+
+  <!-- ===== FAVICON ===== -->
+  <!-- Favicon SVG para navegadores modernos -->
+  <link rel="icon" href="../imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml">
+  <!-- Favicon ICO como fallback -->
+  <!-- <link rel="alternate icon" href="imagenes/Hunmen_Logo/favicon.ico" type="image/x-icon"> -->
+
+  <!-- ===== OPEN GRAPH (para redes sociales y vista previa en enlaces) ===== -->
+  <meta property="og:title" content="Hunmen | contacto">
+  <meta property="og:description" content="contacto">
+  <!-- <meta property="og:image" content="https://www.hunmen.com.mx/imagenes/Portada/hunmen_portada.jpg"> -->
+  <meta property="og:url" content="https://www.hunmen.com.mx/contacto">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+
+  <!-- ===== FUENTE LORA ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- ===== ARCHIVOS CSS ===== -->
+  <link rel="stylesheet" href="../css/contacto.css">
+  <link rel="stylesheet" href="../css/header-general.css">
+  <link rel="stylesheet" href="../css/footer.css">
+
+  <!-- ===== MENU FLOTANTE ===== -->
+  <link rel="stylesheet" href="../css/menu.css">
+
+
+  <!-- ===== SCRIPTS PRINCIPALES ===== -->
+  <script src="../js/cargar-componentes.js" defer></script>
+  <script src="../js/scroll.js" defer></script>
+  <script src="../js/menu.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ===== CABECERA PRINCIPAL ===== -->
+  <header id="header-general"></header>
+
+  <!-- ===== SECCIONES DE LA PÁGINA PRINCIPAL ===== -->
+  <main>
+
+    <!-- DIAPOSITIVA FINAL -->
+<section class="diapositiva Contacto" id="Contacto">
+  <div class="contenido-diapositiva">
+    <!-- Información -->
+    <div class="info-contacto">
+        <h2 class="titulo">Contacto y Aviso Legal</h2>
+    <div class="bloque-contacto">
+        <p><strong>Correo:</strong> hunmen.web@gmail.com</p>
+    </div>
+    <h3>Aviso Legal</h3>
+    <p class="descripcion">
+        Este sitio web funciona como catálogo informativo. Empleamos Mercado Libre como tienda oficial y es quien administra la logística de los envíos.  
+        El contenido, fotografías y descripciones mostradas son propiedad de Hunmen y no pueden utilizarse sin autorización previa.
+    </p>
+    <p class="descripcion">
+        La información presentada (cantidad, disponibilidad y características) es orientativa y puede actualizarse en Mercado Libre sin previo aviso.
+    </p>
+    <p class="descripcion">
+        Si te pones en contacto por WhatsApp, correo o redes sociales, tus datos solo serán utilizados para responder a tu mensaje.  
+        No se almacenan ni se comparten con terceros.
+    </p>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <!-- ===== PIE DE PÁGINA ===== -->
+<div id="footer-general"></div>
+<script>
+  fetch('../componentes/footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer-general').innerHTML = data;
+    })
+    .catch(err => console.error('Error cargando footer:', err));
+</script>
+
+
+  <!-- ===== ARCHIVOS JS ===== -->
+<script src="../js/menu.js" defer></script>
+<script src="../js/scroll.js" defer></script>
+<script src="../js/cargar-componentes.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+/* ======================== ESTILOS GENERALES ======================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', serif;
+  color: #222;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: auto; /* quitamos smooth global */
+}
+
+/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.diapositiva {
+  height: 100vh; /* Cada sección ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+#Contacto1 {
+  height: auto;
+  min-height: 73vh;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+#Contacto {
+  padding-top: 100px; /* deja un espacio para que no tape la cabecera */
+}
+
+/* ======================== CONTENIDO ======================== */
+.titulo {
+  font-size: 2.5rem;
+  opacity: 0;
+}
+
+.descripcion {
+  font-style: italic;
+  margin-top: 1rem;
+  opacity: 0;
+}
+
+.titulo,
+.descripcion {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* ======================== COLORES DE SECCIONES ======================== */
+
+#Contacto { background: #fdffe8; }       
+
+  /* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
+@media (max-width: 768px) {
+  #Contacto {
+    min-height: 76vh;  /* más alta en móvil */
+  }
+}
+
+/* Contenedor interno */
+.contenido-diapositiva {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info-contacto {
+  text-align: left;
+}
+
+/* Títulos dentro de info-vela */
+.info-contacto h2,
+.info-contacto h3 {
+  margin-bottom: 10px;  /* espacio entre títulos y demás contenido */
+}
+
+/* Opciones con enlaces */
+.info-contacto .paquetes a {
+  display: inline-block;   /* para que se vean como elementos individuales */
+  margin-right: 10px;      /* espacio entre enlaces */
+  text-decoration: none;   /* quitar subrayado si quieres */
+}
+
+/* Viñetas opcionales para h3 */
+.info-contacto h3::before {
+  content: "🌸 ";           /* viñeta personalizada */
+}
+
+.info-contacto {
+  font-size: 2rem;    /* ajusta este valor según lo grande que quieras el título */
+  font-weight: bold;  /* opcional: que se vea más destacado */
+}
+
+.titulo-general {
+  margin-bottom: 30px; /* ajusta el valor según cuánto quieras separarlo */
+}
+
+/* Información textual (lado derecho) */
+.info-contacto {
+  flex: 1;
+  min-width: 260px;
+  max-width: 620px;
+}
+
+/* Enlaces de paquetes */
+.paquetes a {
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 6px;
+}
+
+/* Bloque de datos de contacto */
+.bloque-contacto p {
+  margin: 6px 0;
+  font-size: 1.2rem;
+}
+
+/* Ajuste del tamaño de las descripciones */
+.info-contacto .descripcion {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Encabezado */
+.info-contacto h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+/* Subtítulo Aviso Legal */
+.info-contacto h3 {
+  font-size: 1.4rem;
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .contenido-diapositiva {
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .titulo-general {
+    display: none;
+  }
+
+  .info-contacto {
+    font-size: 0.8rem; /* tamaño más pequeño en celular */
+  }
+  
+  .info-contacto h2 {
+    font-size: 1.2rem;
+  }
+
+  .info-contacto h3 {
+    font-size: 0.8rem; /* si quieres que aún estén más parejos */
+  }
+
+  .info-contacto {
+    max-width: 92%;
+  }
+
+  .bloque-contacto p {
+    font-size: 0.9rem;
+  }
+
+  .info-contacto .descripcion {
+    font-size: 0.9rem;
+  }
+}

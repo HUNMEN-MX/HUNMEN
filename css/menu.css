@@ -1,0 +1,172 @@
+/* =========================================================
+   MENÚ FLOTANTE - HUNMEN
+   =========================================================
+   Compatible con cabecera transparente y adaptable a móvil
+   ========================================================= */
+
+/* Contenedor principal del menú */
+.menu {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Botón del menú (ícono de 3 líneas o palabra “MENÚ”) */
+#btn-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.3s ease;
+}
+
+#btn-menu:hover {
+  transform: scale(1.1);
+}
+
+/* ======== PANEL LATERAL ======== */
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  right: -100%; /* oculto inicialmente */
+  width: 280px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95); /* semitransparente */
+  backdrop-filter: blur(8px); /* efecto vidrio esmerilado */
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+  transition: right 0.4s ease;
+  z-index: 1200;
+}
+
+/* Panel visible */
+.menu-lateral.activo {
+  right: 0;
+}
+
+/* Contenedor interno del menú */
+.menu-contenido {
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Botón “cerrar” (la X) */
+#cerrar-menu {
+  align-self: flex-end;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #6c2eb9; /* tono morado principal */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#cerrar-menu:hover {
+  transform: rotate(90deg);
+}
+
+/* Lista del menú */
+.menu-contenido ul {
+  list-style: none;
+  margin-top: 3rem;
+  padding: 0;
+}
+
+.menu-contenido li {
+  margin-bottom: 1.2rem;
+}
+
+.menu-contenido a {
+  font-family: "Lora", serif;
+  font-size: 1.4rem;
+  font-weight: bold; 
+  color: #94b551;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-contenido a:hover {
+  color: #86008f;
+  transform: translateX(5px);
+}
+
+/* ======== OVERLAY (fondo oscuro detrás del menú) ======== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1100;
+}
+
+/* Activo */
+.overlay.activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .menu-lateral {
+    width: 80%;
+  }
+
+  .menu-contenido a {
+    font-size: 1.1rem;
+  }
+}
+
+/* ======================== SEPARADOR DECORATIVO ======================== */
+.separador-menu {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.separador-menu img {
+  width: 240px;           /* Ajusta según el diseño */
+  opacity: 1;             /* Sutil, sin dominar el menú */
+  filter: none !important;
+  transition: opacity 0.3s ease !important;
+  transform: none !important;
+}
+
+.separador-menu img:hover {
+  opacity: 1;
+}
+
+/* En móvil, que sea un poco más pequeño */
+@media (max-width: 768px) {
+  .separador-menu img {
+    width: 240px;
+  }
+}
+
+
+/* ======================== AJUSTE RESPONSIVE PARA CELULAR ======================== */
+@media (max-width: 768px) {
+  #menu-lateral {
+    width: 50%;          /* Antes era 75% o 100%: ahora más angosto en móvil */
+    max-width: none;     /* Elimina el límite de 320px */
+    /*right: -100%;        /* Asegura que se oculte totalmente fuera de pantalla */
+    padding: 1.5rem 1rem; /* Ajusta márgenes para pantallas pequeñas */
+  }
+
+  .menu-contenido a {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  #menu-lateral ul li a {
+    font-size: 1rem; /* Letras más pequeñas */
+  }
+
+  #cerrar-menu {
+    font-size: 1.5rem;
+  }
+}

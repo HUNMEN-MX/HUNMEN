@@ -1,0 +1,122 @@
+.header-general {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-image: url("../imagenes/Fondos_Principales/Portada_Fondo.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1000;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  /* ✅ Sombra para dar efecto de profundidad */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Redes sociales PC */
+.redes-header {
+  display: flex;
+  gap: 1rem;
+  justify-self: start;
+}
+.redes-header img {
+  height: 50px;
+  width: 50px;
+  transition: transform 0.6s, filter 0.3s;
+}
+.redes-header img:hover {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+/* Logo PC */
+.logo {
+  justify-self: center;
+}
+.logo img {
+  height: 60px;
+  transition: transform 0.4s;
+}
+.logo img:hover {
+  transform: scale(1.08);
+}
+
+/* Menú PC */
+.menu {
+  justify-self: end;
+}
+.menu img {
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+.menu img:hover {
+  transform: scale(1.08);
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 768px) {
+  /* Header en columna para filas */
+  .header-general {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Logo y menú en la misma fila */
+  .logo, .menu {
+    display: inline-block;
+    height: 30px;
+  }
+  .logo {
+    order: 1;
+  }
+  .menu {
+    order: 1;
+    margin-left: auto; /* se mueve a la derecha */
+  }
+
+  /* Redes centradas debajo */
+  .redes-header {
+    order: 3;
+    display: flex;
+    justify-content: left;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left: 64px;
+    width: 100%;
+  }
+
+  /* Tamaños adaptados para móvil */
+  .logo img {
+    height: 70px;
+  }
+  .menu img {
+    height: 40px;
+  }
+  .redes-header img {
+    height: 34px;
+    width: 34px;
+  }
+}
+
+/* Sombras suaves al contorno de los SVG del header */
+.redes-header img,
+.logo img,
+.menu img {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+  transition: filter 0.3s ease;
+}
+.redes-header img:hover,
+.logo img:hover,
+.menu img:hover {
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.6));
+}
+
+
+

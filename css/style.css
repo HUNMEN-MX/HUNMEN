@@ -1,0 +1,254 @@
+/* ======================== ESTILOS GENERALES ======================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', serif;
+  color: #222;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: auto; /* quitamos smooth global */
+}
+
+/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.diapositiva {
+  height: 100vh; /* Cada sección ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* ======================== CONTENIDO ======================== */
+.titulo {
+  font-size: 2.5rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 2s ease;
+}
+
+.descripcion {
+  font-style: italic;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 2s ease;
+}
+
+.boton {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 25px;
+  text-decoration: none;
+  background: #333;
+  color: white;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 4s ease, transform 0.3s, background 0.3s, filter 0.3s;
+}
+
+.boton:hover {
+  background: #555;
+  transform: scale(1.08);
+}
+
+/* ======================== ANIMACIÓN DE ENTRADA ======================== */
+.diapositiva.visible .titulo,
+.diapositiva.visible .descripcion {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.diapositiva.visible .boton {
+  opacity: 1;
+}
+
+/* ======================== FLECHA ======================== */
+.flecha {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #00bfff; /* 💙 color azul celeste */
+  animation: moverFlecha 1.5s infinite alternate;
+}
+
+@keyframes moverFlecha {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+/* ==================== FLECHA ARRIBA ================== */
+.flecha-arriba {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #00bfff; /* 💙 color azul celeste */
+  animation: moverFlechaArriba 1.5s infinite alternate;
+}
+
+@keyframes moverFlechaArriba {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+/* ======================== INDICADORES LATERALES ======================== */
+.indicadores {
+  position: fixed;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.punto {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #94b551;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.punto.activo {
+  background: #86008f;
+}
+
+/**/
+/* --- INICIA DIAPOSITIVA FINAL (ESTILO ENVIOS) --- */
+.diapositiva.final {
+  /* ⚠️ Mantiene tus valores originales */
+  height: auto;
+  min-height: 73vh;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  /* ✅ Sobrescribe solo lo necesario */
+  flex-direction: row !important; /* fuerza fila horizontal */
+  text-align: left;
+  gap: 3rem;
+}
+
+/* --- Texto --- */
+.diapositiva.final .contenido {
+  flex: 0 0 65%; /* ✅ en lugar de flex: 1; max-width: 65% */
+  padding-right: 2rem;
+}
+
+
+.diapositiva.final .titulo {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 1rem;
+  margin-left: 200px;
+}
+
+.diapositiva.final .descripcion {
+  font-size: 1.2rem;
+  color: #7c2a8c;
+  line-height: 1.6em;
+  margin-bottom: 1rem;
+  margin-left: 200px;
+}
+
+/* --- Imagen a la derecha --- */
+.diapositiva.final .imagen-derecha {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 200px;
+}
+
+.diapositiva.final .imagen-derecha img {
+  width: 110%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/*TERMINA DIAPOSITIVA FINAL*/
+
+
+/* ======================== COLORES DE SECCIONES ======================== */
+
+.portada {
+  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.cera-de-soya { background: #f9f7e0; }
+.regalos { background: #F8C1E3; }     /* rosa pastel kawaii */
+.herbolaria { background: #CFF8D6; }  /* verde menta suave */
+.adornos { background: #D9C6F7; }     /* lila pastel delicado */
+.pomadas { background: #FFE0ED; }     /* rosa bebé ligero */
+.shampoo { background: #CFF4F4; }     /* azul celeste pastel */
+.final { background: #f9f7e0; }
+
+
+/* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
+@media (max-width: 768px) {
+  .diapositiva.final {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    padding: 7rem 0 0; /* 🔹 da aire arriba pero conserva espacio para el footer */
+    min-height: 76vh; /* ⚠️ se mantiene la altura para funcionar con el footer */
+  }
+
+  /* --- Texto --- */
+  .diapositiva.final .contenido {
+    flex: none;
+    max-width: 90%;
+    padding: 0;
+    margin: 0 auto 0 auto; /* 🔹 pequeño espacio entre texto e imagen */
+  }
+
+  .diapositiva.final .titulo {
+    font-size: 1.8rem;
+    margin: 0 0 0 0;
+    text-align: center;
+  }
+
+  .diapositiva.final .descripcion {
+    font-size: 1rem;
+    margin: 0 auto;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* --- Imagen --- */
+  .diapositiva.final .imagen-derecha {
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 0.5rem; /* 🔹 acerca más la imagen al texto */
+  }
+
+  .diapositiva.final .imagen-derecha img {
+    width: 50%;
+    max-width: 320px;
+    height: auto;
+  }
+}
+

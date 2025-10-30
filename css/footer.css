@@ -1,0 +1,105 @@
+/* ===== PIE DE PÁGINA GENERAL ===== */
+.footer {
+  width: 100%;
+  min-height: 20vh;               /* altura mínima: 20% de la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* separar filas superior e inferior */
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #282828;
+}
+
+/* ===== GRID DE CONTENIDO: 3 COLUMNAS ===== */
+.footer-contenido {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+  gap: 2rem;                             /* espacio entre columnas */
+  align-items: start;                     /* alinear contenido al inicio */
+  width: 100%;
+}
+
+/* ===== COLUMNA 1: LOGO ===== */
+.footer-logo img {
+  height: 100px;   /* ajustar tamaño si ocupa demasiado */
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== COLUMNA 2: TEXTO ===== */
+.footer-texto p {
+  margin: 0;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ===== COLUMNA 3: MÉTODOS DE PAGO ===== */
+.footer-pagos {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* contenido arriba */
+  align-items: flex-end;       /* contenido a la derecha */
+}
+
+.logos-pago img {
+  height: 35px;       /* misma altura para todas */
+  width: auto;        /* mantiene proporción */
+  margin-right: 0.5rem;
+}
+
+/* ===== COPYRIGHT ===== */
+.footer-copy {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #353535;
+  border-top: 1px solid #444;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+/* ===== RESPONSIVE MÓVIL ===== */
+@media (max-width: 768px) {
+  /* Cambiar grid a flex para alinear las dos columnas horizontalmente */
+  .footer-contenido {
+    display: flex;
+    justify-content: space-between; /* separar primera y tercera columna */
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  /* Ocultar solo la columna del medio */
+  .footer-texto {
+    display: none;
+  }
+
+  /* Reducir tamaño de logo */
+  .footer-logo img {
+    height: 80px;  /* más pequeño que en desktop */
+  }
+
+  /* Ajustar la columna de métodos de pago */
+  .footer-pagos {
+    flex-direction: column;
+    align-items: flex-start; /* alinear contenido a la izquierda */
+  }
+
+  .footer-pagos h4 {
+    font-size: 0.9rem; /* reducir tamaño */
+  }
+
+  .logos-pago img {
+    height: 25px; /* imágenes más pequeñas */
+    margin: 0.25rem 0.25rem 0 0;
+  }
+
+  /* Footer inferior (copyright) */
+  .footer-copy {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
+

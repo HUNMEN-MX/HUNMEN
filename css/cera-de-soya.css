@@ -1,0 +1,304 @@
+/* ======================== ESTILOS GENERALES ======================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', serif;
+  color: #222;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: auto; /* quitamos smooth global */
+}
+
+/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.diapositiva {
+  height: 100vh; /* Cada sección ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+#Aromatizantes {
+  height: auto;
+  min-height: 73vh;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* ======================== CONTENIDO ======================== */
+.titulo {
+  font-size: 2.5rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 2s ease;
+}
+
+.descripcion {
+  font-style: italic;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 2s ease;
+}
+
+/* ======================== ANIMACIÓN DE ENTRADA ======================== */
+.diapositiva.visible .titulo,
+.diapositiva.visible .descripcion {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======================== FLECHA ======================== */
+.flecha {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #00bfff; /* 💙 color azul celeste */
+  animation: moverFlecha 1.5s infinite alternate;
+}
+
+@keyframes moverFlecha {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+/* ==================== FLECHA ARRIBA ================== */
+.flecha-arriba {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #00bfff; /* 💙 color azul celeste */
+  animation: moverFlechaArriba 1.5s infinite alternate;
+}
+
+@keyframes moverFlechaArriba {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+/* ======================== INDICADORES LATERALES ======================== */
+.indicadores {
+  position: fixed;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.punto {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #94b551;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.punto.activo {
+  background: #86008f;
+}
+
+/* ======================== COLORES DE SECCIONES ======================== */
+/*.portada { background: #FFF6C3; }*/
+
+#corazon {
+  background-image: url("../imagenes/Fondos_Principales/Portada_Fondo.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#Octagonal { background: #FFD8E8; }            /* Rosa pastel */
+#OctagonalFlor { background: #F3E1FF; }        /* Lila pastel */
+#OctagonalLazo { background: #D8F8E1; }        /* Verde menta suave */
+#Bubble { background: #E8E4FF; }               /* Lavanda muy suave */
+#BubbleEnCaja { background: #E0F4FF; }         /* Celeste pastel */
+#BubbleEnTul { background: #FFE6F2; }          /* Rosa algodón */
+#Nube { background: #FFF3D6; }                 /* Durazno pastel */
+#NubeEnCaja { background: #F9FFE1; }           /* Amarillo vainilla */
+#NubeEnTul { background: #FFEDE1; }            /* Melocotón suave */
+#CircularConMargarita { background: #E3FFF3; } /* Verde agua pastel */
+#CircularRosaLazo { background: #FDEBFF; }     /* Rosa-lila pastel */
+#Margarita { background: #EFFFFA; }            /* Verde hielo */
+#MargaritaEnTul { background: #E1F0FF; }       /* Azul cielo pastel */
+#RosasCorazon { background: #FFE1EA; }         /* Rosa blush */
+#Corazon { background: #FFFAE1; }              /* Crema pastel */
+#Amor { background: #E1FFFB; }                 /* Aqua muy suave */
+#Rubik { background: #FBE1FF; }                /* Lila rosado */
+#Loto { background: #FFF0F5; }                 /* Rosita helado */
+#RamoCircular { background: #E1FFF1; }         /* Verde menta pálido */
+#RamoOctagonal { background: #F1E8FF; }        /* Malva pastel */
+#Aromatizantes { background: #E6E6FF; }        /* Lavanda cielo */
+
+
+
+
+  /* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
+@media (max-width: 768px) {
+  #Aromatizantes {
+    min-height: 76vh;  /* más alta en móvil */
+  }
+}
+/* =========================================================
+   ADICIÓN MÍNIMA Y SEGURA: CARRUSEL PARA #octagonales
+   - Añadir AL FINAL de cera-de-soya.css
+   - Asegura que las imágenes llenen el recuadro sin deformarse
+   ========================================================= */
+
+/* Contenedor principal de la sección */
+#Octagonal {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Contenedor interno: imagen + texto */
+.contenido-diapositiva {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info-vela {
+  text-align: left;
+}
+
+/* Títulos dentro de info-vela */
+.info-vela h2,
+.info-vela h3 {
+  margin-bottom: 10px;  /* espacio entre títulos y demás contenido */
+}
+
+/* Opciones con enlaces */
+.info-vela .paquetes a {
+  display: inline-block;   /* para que se vean como elementos individuales */
+  margin-right: 10px;      /* espacio entre enlaces */
+  text-decoration: none;   /* quitar subrayado si quieres */
+}
+
+/* Viñetas opcionales para h3 */
+.info-vela h3::before {
+  content: "🌸 ";           /* viñeta personalizada */
+}
+
+.titulo-vela {
+  font-size: 2rem;    /* ajusta este valor según lo grande que quieras el título */
+  font-weight: bold;  /* opcional: que se vea más destacado */
+}
+
+.titulo-general {
+  margin-bottom: 30px; /* ajusta el valor según cuánto quieras separarlo */
+}
+
+/* ===== Carrusel ===== */
+.carrusel {
+  position: relative;
+  width: 462px;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* Cada slide */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.slide.active {
+  display: block;
+}
+
+/* Imágenes dentro del carrusel */
+.carrusel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* ✅ Llenar el cuadro sin deformar */
+  object-position: center;  /* ✅ Centrada al recortar */
+  display: block;
+  background-color: #fff;   /* ✅ Fondo por si hay transparencias */
+}
+
+/* Flechas de control */
+.carrusel .prev,
+.carrusel .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(255,255,255,0.9);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  display: none; /* el JS las muestra si hay más de 1 slide */
+}
+.carrusel .prev { left: 8px; }
+.carrusel .next { right: 8px; }
+
+/* Información textual (lado derecho) */
+.info-vela {
+  flex: 1;
+  min-width: 260px;
+  max-width: 620px;
+}
+
+/* Enlaces de paquetes */
+.paquetes a {
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 6px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .contenido-diapositiva {
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .titulo-general {
+    display: none;
+  }
+
+  .carrusel {
+    width: 360px;
+    height: 203px;
+  }
+
+  .info-vela {
+    max-width: 92%;
+  }
+}
+/* Ajuste específico para la primera imagen panorámica */
+.slide:first-child img {
+  object-fit: cover;
+  object-position: center top; /* mueve el recorte hacia arriba */
+}
