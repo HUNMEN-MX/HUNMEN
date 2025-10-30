@@ -5,14 +5,11 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Lora', serif;
-  color: #222;
-  overflow-x: hidden;
-}
-
-html {
-  scroll-behavior: auto; /* quitamos smooth global */
+html, body {
+  scroll-behavior: auto; /* seguimos controlando animación desde JS */
+  scroll-snap-type: y mandatory; /* snap para móviles y scroll manual */
+  height: 100%;
+  overflow-y: scroll;
 }
 
 /* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
@@ -22,6 +19,7 @@ main {
 }
 
 .diapositiva {
+  scroll-snap-align: start;
   height: 100vh; /* Cada sección ocupa toda la pantalla */
   display: flex;
   flex-direction: column;

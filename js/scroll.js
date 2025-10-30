@@ -1,16 +1,13 @@
-/* ======================== CONTROL DE SCROLL SUAVE ======================== */
-
 const secciones = document.querySelectorAll('.diapositiva');
 let indice = 0;
 let scrolling = false;  // Bloquea scroll mientras se mueve
 
-// --- Si el menú está abierto, no permitir scroll entre secciones ---
 function menuAbierto() {
   return document.documentElement.dataset.menuAbierto === "true"
          || document.getElementById('menu-lateral')?.classList.contains('activo');
 }
 
-/* ======================== ANIMACIONES Y INDICADORES ======================== */
+/* ======================== ANIMACIONES E INDICADORES ======================== */
 const opciones = { threshold: 0.5 };
 const observer = new IntersectionObserver((entradas) => {
   entradas.forEach(entrada => {
@@ -38,7 +35,7 @@ function scrollSuaveA(seccion, duracion = 800) {
     const tiempoPasado = currentTime - startTime;
     const progreso = Math.min(tiempoPasado / duracion, 1);
 
-    // Función de easing: easeInOutQuad
+    // easing
     const ease = progreso < 0.5
       ? 2 * progreso * progreso
       : -1 + (4 - 2 * progreso) * progreso;
@@ -48,6 +45,8 @@ function scrollSuaveA(seccion, duracion = 800) {
     if (progreso < 1) {
       requestAnimationFrame(animacion);
     } else {
+      // Forzar posición exacta al final para 100% diapositiva
+      window.scrollTo(0, destino);
       scrolling = false;
     }
   }
@@ -60,7 +59,6 @@ function irASeccion(i) {
   if (i < 0 || i >= secciones.length) return;
   if (scrolling) return;
 
-  // Cerrar menú si estuviera abierto
   if (menuAbierto()) {
     document.getElementById('menu-lateral')?.classList.remove('activo');
     document.getElementById('overlay')?.classList.remove('activo');
@@ -78,11 +76,8 @@ window.addEventListener('wheel', e => {
   if (scrolling) return;
   if (menuAbierto()) return;
 
-  if (e.deltaY > 0) {
-    irASeccion(indice + 1);
-  } else if (e.deltaY < 0) {
-    irASeccion(indice - 1);
-  }
+  if (e.deltaY > 0) irASeccion(indice + 1);
+  else if (e.deltaY < 0) irASeccion(indice - 1);
 });
 
 /* ======================== SCROLL CON TECLAS ======================== */
@@ -90,14 +85,11 @@ window.addEventListener('keydown', e => {
   if (scrolling) return;
   if (menuAbierto()) return;
 
-  if (e.key === 'ArrowDown') {
-    irASeccion(indice + 1);
-  } else if (e.key === 'ArrowUp') {
-    irASeccion(indice - 1);
-  }
+  if (e.key === 'ArrowDown') irASeccion(indice + 1);
+  else if (e.key === 'ArrowUp') irASeccion(indice - 1);
 });
 
-/* ======================== SCROLL CON INDICADORES LATERALES ======================== */
+/* ======================== SCROLL CON INDICADORES ======================== */
 document.querySelectorAll('.punto').forEach(punto => {
   punto.addEventListener('click', () => {
     const id = punto.getAttribute('data-seccion');
@@ -122,12 +114,6 @@ document.addEventListener('touchend', e => {
   touchEndY = e.changedTouches[0].clientY;
   const diff = touchStartY - touchEndY;
 
-  if (diff > 50) {
-    // swipe hacia arriba → siguiente diapositiva
-    irASeccion(indice + 1);
-  } else if (diff < -50) {
-    // swipe hacia abajo → diapositiva anterior
-    irASeccion(indice - 1);
-  }
+  if (diff > 50) irASeccion(indice + 1);
+  else if (diff < -50) irASeccion(indice - 1);
 });
-
