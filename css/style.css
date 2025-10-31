@@ -1,241 +1,171 @@
-/* ======================== ESTILOS GENERALES ======================== */
+/* =========================================================
+   style.css — Estilos base del index principal (diapositivas)
+   ========================================================= */
+
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  scroll-behavior: auto;
+/* Configuración general */
+html,
+body {
   height: 100%;
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+  font-family: "Lora", serif;
+  background-color: #0d0d0d;
+  color: #000000;
+  font-size: 100%; /* base 16px relativa */
 }
 
-/* ===== Scroll snap solo para móviles ===== */
+/* Contenedor de todas las diapositivas */
+.slides-container {
+  height: 100vh;
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+/* Cada diapositiva */
+.slide {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  scroll-snap-align: start;
+  position: relative;
+  text-align: center;
+  padding: 5%;
+}
+
+/* Contenido dentro de cada diapositiva */
+.slide-content {
+  z-index: 2;
+  max-width: 80%;
+  padding: 2%;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.slide h1,
+.slide h2 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 2%;
+  font-size: 2.2rem;
+}
+
+.slide p {
+  font-weight: 300;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  margin-bottom: 3%;
+}
+
+/* Fondo pastel kawaii (por ahora, degradado suave) */
+#slide-1 {
+  background: linear-gradient(180deg, #ffd6e0 0%, #ffe6f2 100%);
+}
+#slide-2 {
+  background: linear-gradient(180deg, #e0ffe6 0%, #f0fff2 100%);
+}
+#slide-3 {
+  background: linear-gradient(180deg, #e6f0ff 0%, #f2f6ff 100%);
+}
+
+/* Botón "Ver más" */
+.btn-ver-mas {
+  display: inline-block;
+  margin-top: 2%;
+  background-color: #ffffff;
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 2rem;
+  padding: 0.9em 2.2em;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
+}
+
+.btn-ver-mas:hover {
+  background-color: #ffb6c1;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0.6em 1.2em rgba(0, 0, 0, 0.2);
+}
+
+/* Botón en pantallas pequeñas */
 @media (max-width: 768px) {
-  html, body {
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+  .btn-ver-mas {
+    font-size: 0.9rem;
+    padding: 0.8em 2em;
   }
 }
 
-/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
-main {
-  display: flex;
-  flex-direction: column;
-}
 
-.diapositiva {
-  scroll-snap-align: start;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  position: relative;
-}
-
-/* ======================== CONTENIDO ======================== */
-.titulo {
-  font-size: 2.5rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
-}
-
-.descripcion {
-  font-style: italic;
-  margin-top: 1rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
-}
-
-.boton {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.8rem 1.6rem;
-  border-radius: 25px;
-  text-decoration: none;
-  background: #333;
-  color: white;
-  font-weight: 600;
-  opacity: 0;
-  transition: opacity 4s ease, transform 0.3s, background 0.3s;
-}
-
-.boton:hover {
-  background: #555;
-  transform: scale(1.08);
-}
-
-/* ======================== ANIMACIÓN DE ENTRADA ======================== */
-.diapositiva.visible .titulo,
-.diapositiva.visible .descripcion,
-.diapositiva.visible .boton {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ======================== FLECHA ABAJO ======================== */
-.flecha {
-  position: absolute;
-  bottom: 20px;
-  font-size: 2rem;
-  color: #00bfff;
-  animation: moverFlecha 1.5s infinite alternate;
-}
-
-@keyframes moverFlecha {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
-}
-
-/* ======================== FLECHA ARRIBA ======================== */
-.flecha-arriba {
-  position: absolute;
-  bottom: 20px;
-  font-size: 2rem;
-  color: #00bfff;
-  animation: moverFlechaArriba 1.5s infinite alternate;
-}
-
-@keyframes moverFlechaArriba {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
-}
-
-/* ======================== INDICADORES LATERALES ======================== */
-.indicadores {
+/* Indicadores (puntos) */
+.dots {
   position: fixed;
-  right: 25px;
+  right: 3%;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1vh;
+  z-index: 10;
 }
 
-.punto {
-  width: 12px;
-  height: 12px;
+.dot {
+  width: 0.9rem;
+  height: 0.9rem;
   border-radius: 50%;
-  background: #94b551;
+  background-color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.punto.activo {
-  background: #86008f;
+.dot:hover {
+  transform: scale(1.2);
 }
 
-/* ======================== DIAPOSITIVA FINAL ======================== */
-.diapositiva.final {
-  height: auto;
-  min-height: 73vh;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  flex-direction: row !important;
-  text-align: left;
-  gap: 3rem;
+.dot.active {
+  background-color: #ff9ecb;
 }
 
-.diapositiva.final .contenido {
-  flex: 0 0 65%;
-  padding-right: 2rem;
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.diapositiva.final .titulo {
-  font-size: 2.6rem;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 1rem;
-  margin-left: 200px;
-}
-
-.diapositiva.final .descripcion {
-  font-size: 1.2rem;
-  color: #7c2a8c;
-  line-height: 1.6em;
-  margin-bottom: 1rem;
-  margin-left: 200px;
-}
-
-/* Imagen derecha */
-.diapositiva.final .imagen-derecha {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-right: 200px;
-}
-
-.diapositiva.final .imagen-derecha img {
-  width: 110%;
-  height: auto;
-  border-radius: 16px;
-}
-
-/* ========== RESPONSIVE ÚLTIMA DIAPOSITIVA ========== */
+/* Adaptabilidad móvil */
 @media (max-width: 768px) {
-
-  .diapositiva.final {
-    flex-direction: column !important;
-    align-items: center;
-    text-align: center;
-    justify-content: flex-start;
-    padding: 7rem 0 0;
-    min-height: 76vh;
-  }
-
-  .diapositiva.final .contenido {
-    flex: none;
+  .slide-content {
     max-width: 90%;
-    margin: 0 auto;
-    padding: 0;
+    padding: 4%;
   }
 
-  .diapositiva.final .titulo {
+  .slide h1,
+  .slide h2 {
     font-size: 1.8rem;
-    margin: 0;
-    text-align: center;
   }
 
-  .diapositiva.final .descripcion {
+  .slide p {
     font-size: 1rem;
-    margin: 0 auto;
-    line-height: 1.5;
-    text-align: center;
   }
 
-  .diapositiva.final .imagen-derecha {
-    margin: 0;
-    margin-top: 0.5rem;
-    justify-content: center;
-  }
-
-  .diapositiva.final .imagen-derecha img {
-    width: 50%;
-    max-width: 320px;
+  .dots {
+    right: 2%;
   }
 }
-
-/* ======================== COLORES DE SECCIONES ======================== */
-.portada {
-  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.cera-de-soya { background: #f9f7e0; }
-.regalos       { background: #F8C1E3; }
-.herbolaria    { background: #CFF8D6; }
-.adornos       { background: #D9C6F7; }
-.pomadas       { background: #FFE0ED; }
-.shampoo       { background: #CFF4F4; }
-.final         { background: #f9f7e0; }
