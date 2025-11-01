@@ -1,279 +1,174 @@
-/* ======================== ESTILOS GENERALES ======================== */
+/* =========================================================
+   pomada.css — Subpágina del producto Pomada Herbal
+   ========================================================= */
+
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Configuración general */
+html,
 body {
-  font-family: 'Lora', serif;
-  color: #222;
+  height: 100%;
   overflow-x: hidden;
+  font-family: "Lora", serif;
+  background-color: #f7f7f7;
+  color: #222;
 }
 
-html {
-  scroll-behavior: auto; /* quitamos smooth global */
-  -webkit-text-size-adjust: 100%; /* Evita que Safari reduzca o aumente texto automáticamente */
-}
-
-/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
-main {
+/* Contenedor general */
+.pomada-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 6vh;
+  padding-top: 100px; /* para compensar el header fijo */
+  animation: fadeIn 0.8s ease forwards;
 }
 
-.diapositiva {
-  height: 100vh; /* Cada sección ocupa toda la pantalla */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Sección introductoria */
+.intro {
+  background: linear-gradient(180deg, #e6fff2 0%, #f5fff9 100%);
   text-align: center;
-  padding: 2rem;
-  position: relative;
+  padding: 8vh 5%;
 }
 
-#Pomada1 {
-  height: auto;
-  min-height: 73vh;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+.intro-content h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-/* ======================== CONTENIDO ======================== */
-.titulo {
-  font-size: 2.5rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
+.intro-content p {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: #444;
 }
 
+/* Sección descripción */
 .descripcion {
-  font-style: italic;
-  margin-top: 1rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
-}
-
-/* ======================== ANIMACIÓN DE ENTRADA ======================== */
-.diapositiva.visible .titulo,
-.diapositiva.visible .descripcion {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ======================== FLECHA ======================== */
-.flecha {
-  position: absolute;
-  bottom: 20px;
-  font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
-  animation: moverFlecha 1.5s infinite alternate;
-}
-
-@keyframes moverFlecha {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
-}
-
-/* ==================== FLECHA ARRIBA ================== */
-.flecha-arriba {
-  position: absolute;
-  bottom: 20px;
-  font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
-  animation: moverFlechaArriba 1.5s infinite alternate;
-}
-
-@keyframes moverFlechaArriba {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
-}
-
-/* ======================== INDICADORES LATERALES ======================== */
-.indicadores {
-  position: fixed;
-  right: 25px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.punto {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #94b551;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.punto.activo {
-  background: #86008f;
-}
-
-/* ======================== COLORES DE SECCIONES ======================== */
-
-#Pomada1 { background: #F1E8FF; }        /* Malva pastel */
-
-
-
-  /* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
-@media (max-width: 768px) {
-  #Pomada1 {
-    min-height: 76vh;  /* más alta en móvil */
-  }
-}
-/* =========================================================
-   ADICIÓN MÍNIMA Y SEGURA: CARRUSEL PARA #octagonales
-   - Añadir AL FINAL de cera-de-soya.css
-   - Asegura que las imágenes llenen el recuadro sin deformarse
-   ========================================================= */
-
-/* Contenedor interno: imagen + texto */
-.contenido-diapositiva {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 3rem;
+  padding: 6vh 8%;
+  background: #ffffff;
 }
 
-.info-pomada {
-  text-align: left;
+.descripcion .texto {
+  flex: 1 1 400px;
+  max-width: 500px;
 }
 
-/* Títulos dentro de info-vela */
-.info-pomada h2,
-.info-pomada h3 {
-  margin-bottom: 10px;  /* espacio entre títulos y demás contenido */
+.descripcion h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  color: #2c2c2c;
 }
 
-/* Opciones con enlaces */
-.info-pomada .paquetes a {
-  display: inline-block;   /* para que se vean como elementos individuales */
-  margin-right: 10px;      /* espacio entre enlaces */
-  text-decoration: none;   /* quitar subrayado si quieres */
+.descripcion p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
 }
 
-/* Viñetas opcionales para h3 */
-.info-pomada h3::before {
-  content: "🌸 ";           /* viñeta personalizada */
+.descripcion ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-.info-pomada {
-  font-size: 2rem;    /* ajusta este valor según lo grande que quieras el título */
-  font-weight: bold;  /* opcional: que se vea más destacado */
+.descripcion li {
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
 }
 
-.titulo-general {
-  margin-bottom: 30px; /* ajusta el valor según cuánto quieras separarlo */
+/* Imagen */
+.descripcion .imagen {
+  flex: 1 1 300px;
+  max-width: 450px;
 }
 
-/* ===== Carrusel ===== */
-.carrusel {
-  position: relative;
-  width: 462px;
-  height: 260px;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
-
-/* Cada slide */
-.slide {
-  display: none;
+.descripcion img {
   width: 100%;
-  height: 100%;
-}
-.slide.active {
-  display: block;
-}
-
-/* Imágenes dentro del carrusel */
-.carrusel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;        /* ✅ Llenar el cuadro sin deformar */
-  object-position: center;  /* ✅ Centrada al recortar */
-  display: block;
-  background-color: #fff;   /* ✅ Fondo por si hay transparencias */
+  height: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.8em 1.5em rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
 }
 
-/* Flechas de control */
-.carrusel .prev,
-.carrusel .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: rgba(255,255,255,0.9);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 18px;
-  line-height: 36px;
+.descripcion img:hover {
+  transform: scale(1.03);
+}
+
+/* Sección de uso */
+.uso {
+  background: linear-gradient(180deg, #fff8e6 0%, #fffdf5 100%);
   text-align: center;
-  cursor: pointer;
-  display: none; /* el JS las muestra si hay más de 1 slide */
-}
-.carrusel .prev { left: 8px; }
-.carrusel .next { right: 8px; }
-
-/* Información textual (lado derecho) */
-.info-pomada {
-  flex: 1;
-  min-width: 260px;
-  max-width: 620px;
+  padding: 6vh 8%;
 }
 
-/* Enlaces de paquetes */
-.paquetes a {
+.uso h2 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+.uso p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* CTA final */
+.cta {
+  text-align: center;
+  padding: 6vh 0;
+}
+
+.btn-ver-mas {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #333333;
   text-decoration: none;
   font-weight: 600;
-  margin: 0 6px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  border-radius: 2rem;
+  padding: 0.9em 2.2em;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
 }
 
-/* ===== Responsive ===== */
+.btn-ver-mas:hover {
+  background-color: #b0e8c2;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0.6em 1.2em rgba(0, 0, 0, 0.2);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Adaptabilidad */
 @media (max-width: 768px) {
-  .contenido-diapositiva {
+  .descripcion {
     flex-direction: column;
     text-align: center;
-    gap: 18px;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
-  .titulo-general {
-    display: none;
+  .descripcion .imagen {
+    order: -1;
   }
-
-  .info-pomada {
-    font-size: 0.8rem; /* tamaño más pequeño en celular */
-  }
-
-  .info-pomada h3 {
-    font-size: 0.8rem; /* si quieres que aún estén más parejos */
-  }
-  
-  .carrusel {
-    width: 360px;
-    height: 203px;
-    margin-top: 100px; /* ajusta el valor: 20px, 30px, etc. */
-  }
-
-  .info-pomada {
-    max-width: 92%;
-  }
-}
-/* Ajuste específico para la primera imagen panorámica */
-.slide:first-child img {
-  object-fit: cover;
-  object-position: center top; /* mueve el recorte hacia arriba */
 }

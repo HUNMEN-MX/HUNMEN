@@ -1,108 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <!-- ===== METADATOS SEO ===== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <!-- ===== METADATOS SEO ===== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <title>Hunmen | Kits de regalo</title>
-  <meta name="description" content="Hunmen - pomadas">
-  <meta name="keywords" content="Hunmen, pomada, hunguentos, dolor muscular, alivio muscular, herbolaria, medicina alternativa">
-  <meta name="author" content="Hunmen">
+    <title>Hunmen | Pomada Herbal</title>
+    <meta name="description" content="Pomada herbal Hunmen: alivia, hidrata y regenera naturalmente.">
+    <meta name="keywords" content="pomada Hunmen, pomada natural, ungüento herbolario, productos Hunmen">
+    <meta name="author" content="Hunmen">
 
-  <!-- ===== FAVICON ===== -->
-  <!-- Favicon SVG para navegadores modernos -->
-  <link rel="icon" href="../imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml">
-  <!-- Favicon ICO como fallback -->
-  <!-- <link rel="alternate icon" href="imagenes/Hunmen_Logo/favicon.ico" type="image/x-icon"> -->
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" href="../imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml" />
 
-  <!-- ===== OPEN GRAPH (para redes sociales y vista previa en enlaces) ===== -->
-  <meta property="og:title" content="Hunmen | pomadas">
-  <meta property="og:description" content="pomadas">
-  <!-- <meta property="og:image" content="https://www.hunmen.com.mx/imagenes/Portada/hunmen_portada.jpg"> -->
-  <meta property="og:url" content="https://www.hunmen.com.mx/pomadas">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_MX">
+    <!-- ===== ESTILOS ===== -->
+    <link rel="stylesheet" href="../css/pomadas.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/menu.css" />
+  </head>
 
-  <!-- ===== FUENTE LORA ===== -->
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <body>
+    <!-- Cabecera -->
+    <div id="header-placeholder"></div>
 
-  <!-- ===== ARCHIVOS CSS ===== -->
-  <link rel="stylesheet" href="../css/pomadas.css">
-  <link rel="stylesheet" href="../css/header-general.css">
-  <link rel="stylesheet" href="../css/footer.css">
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("../componentes/header.html")
+          .then((res) => res.text())
+          .then((html) => {
+            document.getElementById("header-placeholder").innerHTML = html;
 
-  <!-- ===== MENU FLOTANTE ===== -->
-  <link rel="stylesheet" href="../css/menu.css">
+            // Cargar script del menú después
+            const script = document.createElement("script");
+            script.src = "../js/menu.js";
+            document.body.appendChild(script);
+          })
+          .catch((err) => console.error("Error al cargar header:", err));
+      });
+    </script>
 
-
-  <!-- ===== SCRIPTS PRINCIPALES ===== -->
-  <script src="../js/cargar-componentes.js" defer></script>
-  <script src="../js/scroll.js" defer></script>
-  <script src="../js/menu.js" defer></script>
-</head>
-
-<body>
-
-  <!-- ===== CABECERA PRINCIPAL ===== -->
-  <header id="header-general"></header>
-
-  <!-- ===== SECCIONES DE LA PÁGINA PRINCIPAL ===== -->
-  <main>
-
-    <!-- DIAPOSITIVA FINAL 2 -->
-<section class="diapositiva Pomada1" id="Pomada1">
-  <div class="contenido-diapositiva">
-    <!-- Carrusel de imágenes -->
-    <div class="carrusel">
-      <div class="slides">
-        <!-- Por ahora solo una imagen -->
-        <div class="slide active">
-          <img src="../imagenes/Contenido/Pomadas/Pomada1_img1.webp" alt="pomada 1">
+    <!-- Contenido principal -->
+    <main class="pomada-container">
+      <section class="intro">
+        <div class="intro-content">
+          <h1>Pomada Herbal Hunmen</h1>
+          <p>Alivia, hidrata y regenera tu piel con ingredientes naturales.</p>
         </div>
-      </div>
-      <!-- Controles del carrusel -->
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
-    </div>
-    <!-- Información de herbolaria -->
-    <div class="info-pomada">
-      <div class="opcion">
-        <div class="paquetes">
-          <h3><a href="https://www.mercadolibre.com.mx/pomada-para-dolores-musculares-y-articulares/up/MLMU555836644" target="_blank">Pomada para dolores musculares y articulares</a></h3>
+      </section>
+
+      <section class="descripcion">
+        <div class="texto">
+          <h2>Propiedades</h2>
+          <p>
+            Nuestra pomada está elaborada con una mezcla de extractos naturales que ayudan a aliviar dolores musculares,
+            irritaciones y resequedad. Ideal para el cuidado diario de tu piel.
+          </p>
+          <ul>
+            <li>🌿 Hecha con plantas medicinales.</li>
+            <li>💧 Hidrata profundamente sin dejar sensación grasosa.</li>
+            <li>🌸 Aroma suave y relajante.</li>
+          </ul>
         </div>
-      </div>
-    </div>
-  </div>
-      <div class="flecha-arriba">&#9650;</div>
-</section>
-  </main>
-  
-  <!-- ===== PIE DE PÁGINA ===== -->
-<div id="footer-general"></div>
-<script>
-  fetch('../componentes/footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-general').innerHTML = data;
-    })
-    .catch(err => console.error('Error cargando footer:', err));
-</script>
+        <div class="imagen">
+          <img src="../imagenes/pomada.jpg" alt="Pomada Hunmen" loading="lazy" />
+        </div>
+      </section>
 
+      <section class="uso">
+        <h2>Modo de uso</h2>
+        <p>
+          Aplica una pequeña cantidad sobre la zona deseada y masajea suavemente hasta su absorción.  
+          Puede usarse diariamente según sea necesario.
+        </p>
+      </section>
 
-  <!-- ===== INDICADORES LATERALES ===== -->
-  <div class="indicadores">
-    <span class="punto activo" data-seccion="Pomada1"></span>
-  </div>
+      <section class="cta">
+        <a href="/" class="btn-ver-mas">Volver al inicio</a>
+      </section>
+    </main>
 
-  <!-- ===== ARCHIVOS JS ===== -->
-<script src="../js/menu.js" defer></script>
-<script src="../js/scroll.js" defer></script>
-<script src="../js/cargar-componentes.js" defer></script>
-<script src="../js/carrusel.js" defer></script>  
-
-</body>
-
+    <!-- Scripts -->
+    <script defer src="../js/navegador.js"></script>
+  </body>
 </html>
