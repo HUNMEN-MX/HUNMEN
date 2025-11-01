@@ -1,5 +1,15 @@
 /* ======================= HEADER GENERAL ======================= */
 
+body {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#header-placeholder {
+  margin: 0;
+  padding: 0;
+}
+
 .header-principal {
   width: 100%;
   position: fixed;

@@ -28,7 +28,8 @@
   position: fixed;
   top: 0;
   right: -100%; /* oculto inicialmente */
-  width: 280px;
+  width: 20%;
+  max-width: none;
   height: 100vh;
   max-height: 100dvh; /* 🔥 asegura que se adapte al alto real del dispositivo */
   background: rgba(255, 255, 255, 0.95); /* semitransparente */
@@ -152,7 +153,7 @@
 /* ======================== RESPONSIVE ======================== */
 @media (max-width: 768px) {
   .menu-lateral {
-    width: 80%;
+    width: 40%;
   }
 
   .menu-contenido a {

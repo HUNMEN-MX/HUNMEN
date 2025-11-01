@@ -69,14 +69,41 @@ body {
 }
 
 /* Fondos pastel kawaii */
+/* Diapositiva 1 — Imagen + tono rosado pastel */
 #slide-1 {
-  background: linear-gradient(180deg, #ffd6e0 0%, #ffe6f2 100%);
+  background: radial-gradient(circle at center, #ffe0eb 0%, #ffd6e0 60%, #fff0f5 100%);
+  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+/* Diapositiva 2 — Verde menta */
 #slide-2 {
-  background: linear-gradient(180deg, #e0ffe6 0%, #f0fff2 100%);
+  background: radial-gradient(circle at center, #e3ffe8 0%, #d9ffec 60%, #f0fff5 100%);
 }
+/* Diapositiva 3 — Azul cielo pastel */
 #slide-3 {
-  background: linear-gradient(180deg, #e6f0ff 0%, #f2f6ff 100%);
+  background: radial-gradient(circle at center, #e6f0ff 0%, #dce9ff 60%, #f3f6ff 100%);
+}
+/* Diapositiva 4 — Amarillo pastel */
+#slide-4 {
+  background: radial-gradient(circle at center, #fff9e6 0%, #fff4cc 60%, #fffef5 100%);
+}
+/* Diapositiva 5 — Lavanda suave */
+#slide-5 {
+  background: radial-gradient(circle at center, #f0e6ff 0%, #e8d9ff 60%, #f8f5ff 100%);
+}
+/* Diapositiva 6 — Melocotón pastel */
+#slide-6 {
+  background: radial-gradient(circle at center, #ffe9d9 0%, #ffdccc 60%, #fff5ee 100%);
+}
+/* Diapositiva 7 — Verde lima claro */
+#slide-7 {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #e4ffd1 60%, #f8fff0 100%);
+}
+/* Diapositiva 8 — Verde lima claro */
+#slide-8 {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
 }
 
 /* Botón "Ver más" */
@@ -141,6 +168,159 @@ body {
     transform: translateY(0);
   }
 }
+
+/**/
+
+/* ======================== DIAPOSITIVA FINAL ======================== */
+#slide-8 {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  flex-direction: row;
+  text-align: left;
+  gap: 3rem;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+#slide-8 .slide-content {
+  flex: 0 0 60%;
+  padding-right: 2rem;
+  z-index: 2;
+}
+
+#slide-8 .titulo {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+#slide-8 .descripcion {
+  font-size: 1.2rem;
+  color: #7c2a8c;
+  line-height: 1.6em;
+  margin-bottom: 1rem;
+}
+
+#slide-8 .imagen-derecha {
+  flex: 0 0 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#slide-8 .imagen-derecha img {
+  width: 70%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #slide-8 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+  }
+
+  /* ✨ Nuevo: desplazamiento hacia abajo del contenido */
+  #slide-8 .slide-content {
+    flex: none;
+    max-width: 90%;
+    margin: 26% auto 0 auto; /* 10% del alto de la pantalla */
+    padding: 0;
+  }
+
+  #slide-8 .titulo {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  #slide-8 .slide-content p {
+  margin-bottom: 0rem; /* reduce separación entre párrafos */
+  }
+
+  #slide-8 .descripcion {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  #slide-8 .imagen-derecha {
+    margin-top: -2rem;
+    justify-content: center;
+  }
+
+  #slide-8 .imagen-derecha img {
+    width: 65%;
+    max-width: 320px;
+  }
+}
+/**/
+/* ======================== FLECHA ABAJO ======================== */
+.flecha {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #86008f;
+  animation: moverFlecha 1.5s infinite alternate;
+}
+
+@keyframes moverFlecha {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+/* ======================== FLECHA ARRIBA ======================== */
+.flecha-arriba {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2rem;
+  color: #86008f;
+  animation: moverFlechaArriba 1.5s infinite alternate;
+}
+
+@keyframes moverFlechaArriba {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+/* ======================== ============= ======================== */
+/* ===== COPYRIGHT (para la última diapositiva) ===== */
+#slide-8 {
+  position: relative; /* permite posicionar el footer internamente */
+}
+
+#slide-8 .footer-copy {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  color: #353535;
+  opacity: 0.8;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+/* En móviles, bajamos un poco más por si hay margen inferior del navegador */
+@media (max-width: 768px) {
+  #slide-8 .footer-copy {
+    bottom: 4%;
+    font-size: 0.9rem;
+  }
+}
+
+/**/
+
 
 /* Adaptabilidad móvil */
 @media (max-width: 768px) {

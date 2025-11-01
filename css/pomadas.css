@@ -1,5 +1,5 @@
 /* =========================================================
-   pomada.css — Subpágina del producto Pomada Herbal
+   style.css — Estilos base del index principal (diapositivas)
    ========================================================= */
 
 /* Reset básico */
@@ -13,124 +13,76 @@
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   font-family: "Lora", serif;
-  background-color: #f7f7f7;
-  color: #222;
+  background-color: #0d0d0d;
+  color: #000000;
+  font-size: 100%; /* base 16px relativa */
+  -webkit-text-size-adjust: none;
 }
 
-/* Contenedor general */
-.pomada-container {
+/* Contenedor de todas las diapositivas */
+.slides-container {
+  height: 100vh;
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+/* Cada diapositiva */
+.slide {
+  height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 6vh;
-  padding-top: 100px; /* para compensar el header fijo */
-  animation: fadeIn 0.8s ease forwards;
-}
-
-/* Sección introductoria */
-.intro {
-  background: linear-gradient(180deg, #e6fff2 0%, #f5fff9 100%);
-  text-align: center;
-  padding: 8vh 5%;
-}
-
-.intro-content h1 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.intro-content p {
-  font-size: clamp(1rem, 2.2vw, 1.3rem);
-  color: #444;
-}
-
-/* Sección descripción */
-.descripcion {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
-  padding: 6vh 8%;
-  background: #ffffff;
-}
-
-.descripcion .texto {
-  flex: 1 1 400px;
-  max-width: 500px;
-}
-
-.descripcion h2 {
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  margin-bottom: 1rem;
-  color: #2c2c2c;
-}
-
-.descripcion p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-
-.descripcion ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.descripcion li {
-  margin-bottom: 0.6rem;
-  font-size: 1rem;
-}
-
-/* Imagen */
-.descripcion .imagen {
-  flex: 1 1 300px;
-  max-width: 450px;
-}
-
-.descripcion img {
-  width: 100%;
-  height: auto;
-  border-radius: 1.5rem;
-  box-shadow: 0 0.8em 1.5em rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
-}
-
-.descripcion img:hover {
-  transform: scale(1.03);
-}
-
-/* Sección de uso */
-.uso {
-  background: linear-gradient(180deg, #fff8e6 0%, #fffdf5 100%);
+  flex-direction: column;
+  scroll-snap-align: start;
+  position: relative;
   text-align: center;
-  padding: 6vh 8%;
+  padding: 5%;
 }
 
-.uso h2 {
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  margin-bottom: 1rem;
+/* Contenido dentro de cada diapositiva */
+.slide-content {
+  z-index: 2;
+  max-width: 80%;
+  padding: 2%;
+  animation: fadeInUp 1s ease forwards;
 }
 
-.uso p {
-  max-width: 600px;
-  margin: 0 auto;
-  font-size: 1.1rem;
+/* Tipografía fluida con clamp */
+.slide h1,
+.slide h2 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 2%;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.slide p {
+  font-weight: 300;
   line-height: 1.6;
+  margin-bottom: 3%;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
 }
 
-/* CTA final */
-.cta {
-  text-align: center;
-  padding: 6vh 0;
+/* Fondos pastel kawaii */
+#slide-1 {
+  background: linear-gradient(180deg, #ffd6e0 0%, #ffe6f2 100%);
+}
+#slide-2 {
+  background: linear-gradient(180deg, #e0ffe6 0%, #f0fff2 100%);
+}
+#slide-3 {
+  background: linear-gradient(180deg, #e6f0ff 0%, #f2f6ff 100%);
 }
 
+/* Botón "Ver más" */
 .btn-ver-mas {
   display: inline-block;
+  margin-top: 2%;
   background-color: #ffffff;
   color: #333333;
   text-decoration: none;
@@ -143,17 +95,46 @@ body {
 }
 
 .btn-ver-mas:hover {
-  background-color: #b0e8c2;
+  background-color: #ffb6c1;
   color: #fff;
   transform: scale(1.05);
   box-shadow: 0 0.6em 1.2em rgba(0, 0, 0, 0.2);
 }
 
+/* Indicadores (puntos) */
+.dots {
+  position: fixed;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  z-index: 10;
+}
+
+.dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background-color: #ff9ecb;
+}
+
 /* Animaciones */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(2%);
+    transform: translateY(5%);
   }
   to {
     opacity: 1;
@@ -161,14 +142,22 @@ body {
   }
 }
 
-/* Adaptabilidad */
+/* Adaptabilidad móvil */
 @media (max-width: 768px) {
-  .descripcion {
-    flex-direction: column;
-    text-align: center;
+  .slide-content {
+    max-width: 90%;
+    padding: 4%;
   }
 
-  .descripcion .imagen {
-    order: -1;
+  .dots {
+    right: 2%;
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  /* Safari/iOS */
+  body {
+    font-size: 100%;
+  }
+}
+

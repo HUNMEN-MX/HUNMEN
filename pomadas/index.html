@@ -1,87 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <!-- ===== METADATOS SEO ===== -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomada Herbal | Hunmen</title>
 
-    <title>Hunmen | Pomada Herbal</title>
-    <meta name="description" content="Pomada herbal Hunmen: alivia, hidrata y regenera naturalmente.">
-    <meta name="keywords" content="pomada Hunmen, pomada natural, ungüento herbolario, productos Hunmen">
-    <meta name="author" content="Hunmen">
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/header.css"> <!-- ✅ ruta corregida -->
+  <link rel="stylesheet" href="../css/menu.css">   <!-- ✅ importante para el menú -->
+  <link rel="stylesheet" href="../css/pomadas.css">
+</head>
 
-    <!-- ===== FAVICON ===== -->
-    <link rel="icon" href="../imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml" />
+<body>
+  <!-- Header dinámico -->
+  <div id="header-placeholder"></div>
 
-    <!-- ===== ESTILOS ===== -->
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="../css/general.css">
+    <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Cargar header dinámico
+      fetch("../componentes/header.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("header-placeholder").innerHTML = html;
 
-  </head>
+          // Cargar el JS del menú
+          const scriptMenu = document.createElement("script");
+          scriptMenu.src = "../js/menu.js";
+          document.body.appendChild(scriptMenu);
 
-  <body>
-    <!-- Cabecera -->
-    <div id="header-placeholder"></div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        fetch("../componentes/header.html")
-          .then((res) => res.text())
-          .then((html) => {
-            document.getElementById("header-placeholder").innerHTML = html;
-
-            // Cargar script del menú después
-            const script = document.createElement("script");
-            script.src = "../js/menu.js";
-            document.body.appendChild(script);
-          })
-          .catch((err) => console.error("Error al cargar header:", err));
-      });
-    </script>
+          // Cargar también navegador.js (el del slider y animaciones)
+          const scriptNav = document.createElement("script");
+          scriptNav.src = "../js/navegador.js";
+          document.body.appendChild(scriptNav);
+        })
+        .catch(err => console.error("Error al cargar el header:", err));
+    });
+  </script>
 
     <!-- Contenido principal -->
-    <main class="pomada-container">
-      <section class="intro">
-        <div class="intro-content">
-          <h1>Pomada Herbal Hunmen</h1>
-          <p>Alivia, hidrata y regenera tu piel con ingredientes naturales.</p>
+    <main class="slides-container">
+      <section class="slide" id="slide-1">
+        <div class="slide-content">
+          <h1>Pomadas</h1>
+          <p>Productos artesanales creados con dedicación y armonía</p>
         </div>
       </section>
 
-      <section class="descripcion">
-        <div class="texto">
-          <h2>Propiedades</h2>
-          <p>
-            Nuestra pomada está elaborada con una mezcla de extractos naturales que ayudan a aliviar dolores musculares,
-            irritaciones y resequedad. Ideal para el cuidado diario de tu piel.
-          </p>
-          <ul>
-            <li>🌿 Hecha con plantas medicinales.</li>
-            <li>💧 Hidrata profundamente sin dejar sensación grasosa.</li>
-            <li>🌸 Aroma suave y relajante.</li>
-          </ul>
-        </div>
-        <div class="imagen">
-          <img src="../imagenes/pomada.jpg" alt="Pomada Hunmen" loading="lazy" />
+      <section class="slide" id="slide-2">
+        <div class="slide-content">
+          <h2>¡Velas de soya y más!</h2>
+          <p>¡Hermosas, artesanales, ecológicas y con aromas exquisitos!</p>
+          <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
         </div>
       </section>
 
-      <section class="uso">
-        <h2>Modo de uso</h2>
-        <p>
-          Aplica una pequeña cantidad sobre la zona deseada y masajea suavemente hasta su absorción.  
-          Puede usarse diariamente según sea necesario.
-        </p>
-      </section>
-
-      <section class="cta">
-        <a href="/" class="btn-ver-mas">Volver al inicio</a>
+      <section class="slide" id="slide-3">
+        <div class="slide-content">
+          <h2>Kits de regalos</h2>
+          <p>El regalo ideal para tu persona especial</p>
+          <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
+        </div>
       </section>
     </main>
 
+    <div class="dots"></div>
+    
     <!-- Scripts -->
     <script defer src="../js/navegador.js"></script>
-  </body>
+</body>
 </html>
