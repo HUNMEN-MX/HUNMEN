@@ -20,6 +20,10 @@ body {
   font-size: 100%; /* base 16px relativa */
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 /* Contenedor de todas las diapositivas */
 .slides-container {
   height: 100vh;
@@ -51,22 +55,23 @@ body {
   animation: fadeInUp 1s ease forwards;
 }
 
+/* Tipografía fluida con clamp */
 .slide h1,
 .slide h2 {
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-bottom: 2%;
-  font-size: 2.2rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
 }
 
 .slide p {
   font-weight: 300;
   line-height: 1.6;
-  font-size: 1.1rem;
   margin-bottom: 3%;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
 }
 
-/* Fondo pastel kawaii (por ahora, degradado suave) */
+/* Fondos pastel kawaii */
 #slide-1 {
   background: linear-gradient(180deg, #ffd6e0 0%, #ffe6f2 100%);
 }
@@ -85,7 +90,7 @@ body {
   color: #333333;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   border-radius: 2rem;
   padding: 0.9em 2.2em;
   transition: all 0.3s ease;
@@ -98,15 +103,6 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0.6em 1.2em rgba(0, 0, 0, 0.2);
 }
-
-/* Botón en pantallas pequeñas */
-@media (max-width: 768px) {
-  .btn-ver-mas {
-    font-size: 0.9rem;
-    padding: 0.8em 2em;
-  }
-}
-
 
 /* Indicadores (puntos) */
 .dots {
@@ -154,15 +150,6 @@ body {
   .slide-content {
     max-width: 90%;
     padding: 4%;
-  }
-
-  .slide h1,
-  .slide h2 {
-    font-size: 1.8rem;
-  }
-
-  .slide p {
-    font-size: 1rem;
   }
 
   .dots {
