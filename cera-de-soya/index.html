@@ -31,8 +31,8 @@
 
   <!-- ===== ARCHIVOS CSS ===== -->
   <link rel="stylesheet" href="../css/cera-de-soya.css">
-  <link rel="stylesheet" href="../css/header-general.css">
-  <link rel="stylesheet" href="../css/footer.css">
+  <link rel="stylesheet" href="../css/header.css">
+
 
   <!-- ===== MENU FLOTANTE ===== -->
   <link rel="stylesheet" href="../css/menu.css">
@@ -40,7 +40,7 @@
 
   <!-- ===== SCRIPTS PRINCIPALES ===== -->
   <script src="../js/cargar-componentes.js" defer></script>
-  <script src="../js/scroll.js" defer></script>
+  <script src="../js/navegador.js" defer></script>
   <script src="../js/menu.js" defer></script>
 </head>
 
@@ -910,17 +910,6 @@
       <div class="flecha-arriba">&#9650;</div>
 </section>
   </main>
-  
-  <!-- ===== PIE DE PÁGINA ===== -->
-<div id="footer-general"></div>
-<script>
-  fetch('../componentes/footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-general').innerHTML = data;
-    })
-    .catch(err => console.error('Error cargando footer:', err));
-</script>
 
 
   <!-- ===== INDICADORES LATERALES ===== -->
@@ -950,9 +939,7 @@
 
   <!-- ===== ARCHIVOS JS ===== -->
 <script src="../js/menu.js" defer></script>
-<script src="../js/scroll.js" defer></script>
-<script src="../js/cargar-componentes.js" defer></script>
-<script src="../js/carrusel.js" defer></script>  
+<script src="../js/navegador.js" defer></script> 
 
 </body>
 

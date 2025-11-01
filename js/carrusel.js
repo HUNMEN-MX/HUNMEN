@@ -1,46 +1,111 @@
-// >>> js/carrusel.js (opcional, ligero y seguro)
-// Coloca este archivo en /js y enlázalo con: <script src="js/carrusel.js" defer></script>
-
+// =========================================================
+// js/carrusel.js — Carrusel por slide (multi-instancia)
+// =========================================================
 document.addEventListener('DOMContentLoaded', function () {
-  // Para cada carrusel en la página (permite reutilizar el componente)
-  document.querySelectorAll('.carrusel').forEach(carrusel => {
-    const slides = Array.from(carrusel.querySelectorAll('.slide'));
-    const prev = carrusel.querySelector('.prev');
-    const next = carrusel.querySelector('.next');
-    let index = slides.findIndex(s => s.classList.contains('active'));
-    if (index === -1) index = 0; // si no hay .active, empezamos en 0
+  const carousels = Array.from(document.querySelectorAll('.carrusel'));
 
-    // Si solo hay una slide: no mostramos controles y dejamos esa imagen fija
-    if (slides.length <= 1) {
-      if (prev) prev.style.display = 'none';
-      if (next) next.style.display = 'none';
-      // aseguramos que al menos una slide esté visible
-      slides.forEach((s, i) => s.classList.toggle('active', i === index));
-      return;
+  carousels.forEach((carrusel) => {
+    const track = carrusel.querySelector('.carrusel-track');
+    const items = Array.from(carrusel.querySelectorAll('.carrusel-slide'));
+    const btnPrev = carrusel.querySelector('.prev');
+    const btnNext = carrusel.querySelector('.next');
+
+    if (!track || items.length === 0) return;
+
+    let idx = 0;
+    let autoPlay = false;
+    let autoTimer = null;
+    let inactivityTimer = null;
+
+    // Inicial: marcar visibilidad
+    function refreshVisibility() {
+      items.forEach((it, i) => it.classList.toggle('is-active', i === idx));
+      // mostrar/ocultar botones si hay más de 1 imagen
+      if (items.length <= 1) {
+        if (btnPrev) btnPrev.classList.add('hidden');
+        if (btnNext) btnNext.classList.add('hidden');
+      } else {
+        if (btnPrev) btnPrev.classList.remove('hidden');
+        if (btnNext) btnNext.classList.remove('hidden');
+      }
     }
 
-    // Si hay más de una slide: mostramos controles
-    if (prev) prev.style.display = 'block';
-    if (next) next.style.display = 'block';
-
-    function show(i) {
-      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    // Cambiar a slide i
+    function goTo(i) {
+      idx = (i + items.length) % items.length;
+      refreshVisibility();
     }
 
-    // eventos de flechas (si existen)
-    if (prev) prev.addEventListener('click', () => {
-      index = (index - 1 + slides.length) % slides.length;
-      show(index);
+    // Prev / Next
+    function prev() {
+      goTo(idx - 1);
+      stopAuto();
+      resetInactivityTimer();
+    }
+    function next() {
+      goTo(idx + 1);
+      stopAuto();
+      resetInactivityTimer();
+    }
+
+    // Autoplay (opcional)
+    function startAuto() {
+      stopAuto();
+      autoPlay = true;
+      autoTimer = setInterval(() => {
+        idx = (idx + 1) % items.length;
+        refreshVisibility();
+      }, 3000);
+    }
+    function stopAuto() {
+      autoPlay = false;
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    // Inactividad (vuelve a autoplay si hay interacción nula)
+    function resetInactivityTimer() {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (!autoPlay && items.length > 1) startAuto();
+      }, 3500);
+    }
+
+    // Eventos
+    if (btnPrev) btnPrev.addEventListener('click', prev);
+    if (btnNext) btnNext.addEventListener('click', next);
+
+    // Soporte swipe simple en móvil (touch)
+    let touchStartX = null;
+    track.addEventListener('touchstart', (e) => {
+      stopAuto();
+      touchStartX = e.changedTouches[0].clientX;
+    }, {passive: true});
+    track.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - (touchStartX || 0);
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) next(); else prev();
+      }
+      touchStartX = null;
+      resetInactivityTimer();
     });
 
-    if (next) next.addEventListener('click', () => {
-      index = (index + 1) % slides.length;
-      show(index);
+    // keyboard navigation cuando el carrusel está en viewport (opcional)
+    carrusel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
     });
 
-    // inicializa mostrando la slide actual
-    show(index);
+    // inicializar
+    refreshVisibility();
+    resetInactivityTimer();
+
+    // start autoplay solo si hay más de 1 imagen
+    if (items.length > 1) {
+      // pequeña espera para no iniciar instantáneo en caso de interacción inmediata
+      inactivityTimer = setTimeout(() => startAuto(), 2500);
+    }
   });
 });
-
-
