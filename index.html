@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-  <!-- ===== METADATOS SEO ===== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ===== METADATOS SEO ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hunmen | Productos Artesanales y Naturales</title>
-  <meta name="description" content="Hunmen - Medicina alternativa y productos herbolarios">
-  <meta name="keywords" content="Hunmen, velas artesanales, jabones naturales, aromaterapia, cosmética natural, regalos artesanales, productos naturales">
-  <meta name="author" content="Hunmen">
+    <title>Hunmen | Productos Artesanales y Naturales</title>
+    <meta name="description" content="Hunmen - Medicina alternativa y productos herbolarios">
+    <meta name="keywords" content="Hunmen, velas artesanales, jabones naturales, aromaterapia, cosmética natural, regalos artesanales, productos naturales">
+    <meta name="author" content="Hunmen">
 
-  <!-- ===== FAVICON ===== -->
-  <link rel="icon" href="imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml">
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" href="imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml">
 
-  <!-- ===== OPEN GRAPH ===== -->
-  <meta property="og:title" content="Hunmen | Medicina alternativa y productos herbolarios">
-  <meta property="og:description" content="Medicina alternativa y productos herbolarios">
-  <meta property="og:url" content="https://www.hunmen.com.mx/">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_MX">
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:title" content="Hunmen | Medicina alternativa y productos herbolarios">
+    <meta property="og:description" content="Medicina alternativa y productos herbolarios">
+    <meta property="og:url" content="https://www.hunmen.com.mx/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
 
-    <!-- Estilos principales solo para el index -->
+    <!-- ===== ESTILOS ===== -->
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Estilos del header -->
     <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/menu.css" />
   </head>
 
   <body>
     <!-- Cabecera -->
-    <div id="header-placeholder"></div>
+<div id="header-placeholder"></div>
 
-    <!-- Contenedor principal de las diapositivas -->
-  <main class="slides-container">
-    <!-- Diapositiva 1 -->
-    <section class="slide" id="slide-1">
-      <div class="slide-content">
-        <h1>¡Bienvenidos!</h1>
-        <p>Productos artesanales creados con dedicación y armonía</p>
-      </div>
-    </section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Detectar si estamos dentro de una subcarpeta
+    const isSubpage = window.location.pathname.split("/").filter(Boolean).length > 1;
+    const basePath = isSubpage ? "../" : "";
 
-    <!-- Diapositiva 2 -->
-    <section class="slide" id="slide-2">
-      <div class="slide-content">
-        <h2>¡Velas de soya y más!</h2>
-        <p>¡Hermosas, artesanales, ecológicas y con aromas exquisitos!</p>
-        <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
-      </div>
-    </section>
+    fetch(basePath + "componentes/header.html")
+      .then((res) => res.text())
+      .then((html) => {
+        document.getElementById("header-placeholder").innerHTML = html;
 
-    <!-- Diapositiva 3 -->
-    <section class="slide" id="slide-3">
-      <div class="slide-content">
-        <h2>Kits de regalos</h2>
-        <p>El regalo ideal para tu persona especial</p>
-        <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
-      </div>
-    </section>
-  </main>
+        // Cargar script del menú después
+        const script = document.createElement("script");
+        script.src = basePath + "js/menu.js";
+        document.body.appendChild(script);
+      })
+      .catch((err) => console.error("Error al cargar header:", err));
+  });
+</script>
 
-    <!-- Indicadores de navegación (dots) -->
+
+    <!-- Contenido principal -->
+    <main class="slides-container">
+      <section class="slide" id="slide-1">
+        <div class="slide-content">
+          <h1>¡Bienvenidos!</h1>
+          <p>Productos artesanales creados con dedicación y armonía</p>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-2">
+        <div class="slide-content">
+          <h2>¡Velas de soya y más!</h2>
+          <p>¡Hermosas, artesanales, ecológicas y con aromas exquisitos!</p>
+          <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
+        </div>
+      </section>
+
+      <section class="slide" id="slide-3">
+        <div class="slide-content">
+          <h2>Kits de regalos</h2>
+          <p>El regalo ideal para tu persona especial</p>
+          <a href="/" class="btn-ver-mas">VER CATÁLOGO</a>
+        </div>
+      </section>
+    </main>
+
     <div class="dots"></div>
 
     <!-- Scripts -->
     <script defer src="js/navegador.js"></script>
 
-    <!-- Cargar header -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        fetch("componentes/header.html")
-          .then((res) => res.text())
-          .then((html) => {
-            document.getElementById("header-placeholder").innerHTML = html;
-          });
-      });
-    </script>
   </body>
 </html>

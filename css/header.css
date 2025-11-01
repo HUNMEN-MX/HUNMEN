@@ -1,43 +1,132 @@
-/* =========================================================
-   header.css — Componente de cabecera (reutilizable)
-   ========================================================= */
+/* ======================= HEADER GENERAL ======================= */
 
-.site-header {
+.header-principal {
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 50;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(6px);
-  border-bottom-left-radius: 1.5%;
-  border-bottom-right-radius: 1.5%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: transparent;
+  z-index: 1000;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
-.header-inner {
+/* ======================= REDES SOCIALES ======================= */
+
+.redes-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5% 4%;
+  gap: 1rem;
+  justify-self: start;
 }
+
+.redes-header img {
+  height: 50px;
+  width: 50px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.redes-header img:hover {
+  transform: scale(1.2);
+  filter: brightness(1);
+}
+
+/* ======================= LOGO ======================= */
 
 .logo {
-  text-decoration: none;
-  color: #2b2b2b;
-  font-weight: 700;
-  font-size: 2.2vh;
+  justify-self: center;
 }
+
+.logo img {
+  height: 60px;
+  transition: transform 0.4s;
+}
+
+.logo img:hover {
+  transform: scale(1.08);
+}
+
+/* ======================= MENÚ ======================= */
 
 .menu {
-  list-style: none;
-  display: flex;
-  gap: 2%;
-  margin: 0;
-  padding: 0;
+  justify-self: end;
 }
 
-.menu a {
-  text-decoration: none;
-  color: #2b2b2b;
-  font-size: 1.9vh;
+.menu img {
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.menu img:hover {
+  transform: scale(1.1);
+}
+
+/* ======================= EFECTO DE SOMBRA SVG ======================= */
+
+.redes-header img,
+.logo img,
+.menu img {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.redes-header img:hover,
+.logo img:hover,
+.menu img:hover {
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.6));
+}
+
+/* ======================= RESPONSIVE MÓVIL ======================= */
+
+@media (max-width: 768px) {
+
+  .header-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 1rem;
+  }
+
+  .logo,
+  .menu {
+    display: inline-flex;
+    align-items: center;
+       height: 30px;
+  }
+
+  .logo {
+    order: 1;
+    margin-top: 20px;
+  }
+
+  .menu {
+    order: 1;
+    margin-left: auto;
+  }
+
+  .logo img {
+    height: 70px;
+  }
+
+  .menu img {
+    height: 40px;
+  }
+
+  .redes-header {
+    order: 3;
+    display: flex;
+    justify-content: left;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+
+  .redes-header img {
+    height: 34px;
+    width: 34px;
+  }
 }

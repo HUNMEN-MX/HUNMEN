@@ -42,3 +42,37 @@
   window.initMenu = initMenu;
 
 })();
+(function () {
+  function initMenu() {
+    const btnMenu = document.getElementById("btn-menu");
+    const menuLateral = document.getElementById("menu-lateral");
+    const cerrarMenu = document.getElementById("cerrar-menu");
+    const overlay = document.getElementById("overlay");
+
+    if (!btnMenu || !menuLateral || !cerrarMenu || !overlay) return;
+    if (btnMenu.dataset.inited === "true") return;
+    btnMenu.dataset.inited = "true";
+
+    btnMenu.addEventListener("click", () => {
+      menuLateral.classList.add("activo");
+      overlay.classList.add("activo");
+      document.body.style.overflow = "hidden";
+    });
+
+    function cerrar() {
+      menuLateral.classList.remove("activo");
+      overlay.classList.remove("activo");
+      document.body.style.overflow = "";
+    }
+
+    cerrarMenu.addEventListener("click", cerrar);
+    overlay.addEventListener("click", cerrar);
+  }
+
+  window.initMenu = initMenu;
+
+  // Autoejecutar si el header ya estaba cargado antes
+  if (document.readyState === "complete") {
+    initMenu();
+  }
+})();
