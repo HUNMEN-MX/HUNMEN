@@ -268,30 +268,35 @@ body {
 /* ======================== FLECHA ABAJO ======================== */
 .flecha {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%; /* 🔹 Subida un 10% del alto de la sección */
+  left: 50%; /* 🔹 Centrada horizontalmente */
+  transform: translateX(-50%);
   font-size: 2rem;
   color: #86008f;
   animation: moverFlecha 1.5s infinite alternate;
 }
 
 @keyframes moverFlecha {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, 10px); }
 }
 
 /* ======================== FLECHA ARRIBA ======================== */
 .flecha-arriba {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%; /* 🔹 También más arriba */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 2rem;
   color: #86008f;
   animation: moverFlechaArriba 1.5s infinite alternate;
 }
 
 @keyframes moverFlechaArriba {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, -10px); } /* 🔹 Animación hacia arriba */
 }
+
 /* ======================== ============= ======================== */
 /* ===== COPYRIGHT (para la última diapositiva) ===== */
 #slide-8 {
