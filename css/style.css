@@ -160,7 +160,7 @@ html {
 @supports (-webkit-touch-callout: none) {
   /* Safari/iOS */
   body {
-    font-size: 110%;
+    font-size: 100%;
   }
 }
 
