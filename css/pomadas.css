@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+.slide .titulo,
+.slide .descripcion {
+  opacity: 1;
+}
+
 /* Configuración general */
 html,
 body {
@@ -53,8 +58,7 @@ body {
 }
 
 /* Tipografía fluida con clamp */
-.slide h1,
-.slide h2 {
+.slide h1{
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-bottom: 2%;
@@ -75,8 +79,8 @@ body {
 #slide-2 {
   background: linear-gradient(180deg, #e0ffe6 0%, #f0fff2 100%);
 }
-#slide-3 {
-  background: linear-gradient(180deg, #e6f0ff 0%, #f2f6ff 100%);
+#final {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
 }
 
 /* Botón "Ver más" */
@@ -130,18 +134,163 @@ body {
   background-color: #ff9ecb;
 }
 
-/* Animaciones */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(5%);
+/**/
+/* ======================== DIAPOSITIVA FINAL ======================== */
+#final {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  flex-direction: row;
+  text-align: left;
+  gap: 3rem;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+#final .slide-content {
+  flex: 0 0 60%;
+  padding-right: 2rem;
+  z-index: 2;
+}
+
+#final .titulo {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+#final .descripcion {
+  font-size: 1.2rem;
+  color: #7c2a8c;
+  line-height: 1.6em;
+  margin-bottom: 1rem;
+}
+
+#final .imagen-derecha {
+  flex: 0 0 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#final .imagen-derecha img {
+  width: 70%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #final {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  /* ✨ Nuevo: desplazamiento hacia abajo del contenido */
+  #final .slide-content {
+    flex: none;
+    max-width: 90%;
+    margin: 26% auto 0 auto; /* 10% del alto de la pantalla */
+    padding: 0;
+  }
+
+  #final .titulo {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  #final .slide-content p {
+  margin-bottom: 0rem; /* reduce separación entre párrafos */
+  }
+
+  #final .descripcion {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  #final .imagen-derecha {
+    margin-top: -2rem;
+    justify-content: center;
+  }
+
+  #final .imagen-derecha img {
+    width: 65%;
+    max-width: 320px;
+  }
+}
+/**/
+/* ======================== FLECHA ABAJO ======================== */
+.flecha {
+  position: absolute;
+  bottom: 10%; /* 🔹 Subida un 10% del alto de la sección */
+  left: 50%; /* 🔹 Centrada horizontalmente */
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #86008f;
+  animation: moverFlecha 1.5s infinite alternate;
+}
+
+@keyframes moverFlecha {
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, 10px); }
+}
+
+/* ======================== FLECHA ARRIBA ======================== */
+.flecha-arriba {
+  position: absolute;
+  bottom: 14%; /* 🔹 También más arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #86008f;
+  animation: moverFlechaArriba 1.5s infinite alternate;
+}
+
+@keyframes moverFlechaArriba {
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, -10px); } /* 🔹 Animación hacia arriba */
+}
+
+/* ======================== ============= ======================== */
+/* ===== COPYRIGHT (para la última diapositiva) ===== */
+#final {
+  position: relative; /* permite posicionar el footer internamente */
+}
+
+#final .footer-copy {
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  color: #353535;
+  opacity: 0.8;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+/* En móviles, bajamos un poco más por si hay margen inferior del navegador */
+@media (max-width: 768px) {
+  #final .footer-copy {
+    bottom: 4%;
+    font-size: 0.9rem;
   }
 }
 
+/**/
+
+/**/
 /* Adaptabilidad móvil */
 @media (max-width: 768px) {
   .slide-content {
@@ -160,4 +309,3 @@ body {
     font-size: 100%;
   }
 }
-
