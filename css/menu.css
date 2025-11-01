@@ -30,11 +30,14 @@
   right: -100%; /* oculto inicialmente */
   width: 280px;
   height: 100vh;
+  max-height: 100dvh; /* 🔥 asegura que se adapte al alto real del dispositivo */
   background: rgba(255, 255, 255, 0.95); /* semitransparente */
   backdrop-filter: blur(8px); /* efecto vidrio esmerilado */
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
   transition: right 0.4s ease;
   z-index: 1200;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Panel visible */
@@ -48,6 +51,23 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow-y: auto;           /* 🔥 permite desplazamiento vertical */
+  scrollbar-width: thin;      /* Estilo del scroll (para Firefox) */
+  scrollbar-color: #94b551 transparent; /* color del scroll */
+}
+
+/* Scroll personalizado para navegadores basados en WebKit (Chrome, Safari, Edge) */
+.menu-contenido::-webkit-scrollbar {
+  width: 8px;
+}
+
+.menu-contenido::-webkit-scrollbar-thumb {
+  background-color: #94b551;
+  border-radius: 4px;
+}
+
+.menu-contenido::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* Botón “cerrar” (la X) */
@@ -110,17 +130,6 @@
   pointer-events: all;
 }
 
-/* ======== RESPONSIVE ======== */
-@media (max-width: 768px) {
-  .menu-lateral {
-    width: 80%;
-  }
-
-  .menu-contenido a {
-    font-size: 1.1rem;
-  }
-}
-
 /* ======================== SEPARADOR DECORATIVO ======================== */
 .separador-menu {
   display: flex;
@@ -129,8 +138,8 @@
 }
 
 .separador-menu img {
-  width: 240px;           /* Ajusta según el diseño */
-  opacity: 1;             /* Sutil, sin dominar el menú */
+  width: 240px;
+  opacity: 1;
   filter: none !important;
   transition: opacity 0.3s ease !important;
   transform: none !important;
@@ -140,33 +149,33 @@
   opacity: 1;
 }
 
-/* En móvil, que sea un poco más pequeño */
+/* ======================== RESPONSIVE ======================== */
 @media (max-width: 768px) {
+  .menu-lateral {
+    width: 80%;
+  }
+
+  .menu-contenido a {
+    font-size: 1.1rem;
+  }
+
+  #menu-lateral ul li a {
+    font-size: 1rem;
+  }
+
+  #cerrar-menu {
+    font-size: 1.5rem;
+  }
+
   .separador-menu img {
     width: 180px;
   }
 }
 
-
-/* ======================== AJUSTE RESPONSIVE PARA CELULAR ======================== */
-@media (max-width: 768px) {
-  #menu-lateral {
-    width: 50%;          /* Antes era 75% o 100%: ahora más angosto en móvil */
-    max-width: none;     /* Elimina el límite de 320px */
-    /*right: -100%;        /* Asegura que se oculte totalmente fuera de pantalla */
-    padding: 1.5rem 1rem; /* Ajusta márgenes para pantallas pequeñas */
-  }
-
-  .menu-contenido a {
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
-
-  #menu-lateral ul li a {
-    font-size: 1rem; /* Letras más pequeñas */
-  }
-
-  #cerrar-menu {
-    font-size: 1.5rem;
+/* ======================== SEGURIDAD EXTRA PARA CELULAR HORIZONTAL ======================== */
+@media (orientation: landscape) and (max-height: 500px) {
+  .menu-lateral {
+    height: 100dvh;
+    overflow-y: auto;
   }
 }
