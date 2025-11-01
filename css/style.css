@@ -44,13 +44,19 @@ body {
   padding: 5%;
 }
 
-/* Contenido dentro de cada diapositiva */
+/* Contenido dentro de cada diapositiva 
 .slide-content {
   z-index: 2;
   max-width: 80%;
   padding: 2%;
   animation: fadeInUp 1s ease forwards;
+} */
+ .slide-content {
+  z-index: 2;
+  max-width: 80%;
+  padding: 2%;
 }
+
 
 /* Tipografía fluida con clamp */
 .slide h1 {
@@ -157,6 +163,35 @@ body {
 }
 
 /* ======================== ANIMACIONES DE TEXTO ======================== */
+.slide .titulo,
+.slide .descripcion,
+.slide .btn-ver-mas {
+  opacity: 0;
+  transform: translateY(20%);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Cuando la diapositiva entra en vista */
+.slide.visible .titulo,
+.slide.visible .descripcion,
+.slide.visible .btn-ver-mas {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ⏱️ Retrasos para aparición escalonada */
+.slide.visible .titulo {
+  transition-delay: 0.2s;
+}
+
+.slide.visible .descripcion {
+  transition-delay: 0.4s;
+}
+
+.slide.visible .btn-ver-mas {
+  transition-delay: 0.6s;
+}
+
 
 /* ======================== DIAPOSITIVA FINAL ======================== */
 #slide-8 {
