@@ -156,3 +156,11 @@ html {
     right: 2%;
   }
 }
+
+@supports (-webkit-touch-callout: none) {
+  /* Safari/iOS */
+  body {
+    font-size: 110%;
+  }
+}
+
