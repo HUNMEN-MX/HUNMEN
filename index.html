@@ -49,6 +49,9 @@
         // Cargar script del menú después
         const script = document.createElement("script");
         script.src = basePath + "js/menu.js";
+        script.onload = () => {
+        if (typeof initMenu === "function") initMenu(); // 👈 inicializa tras cargarlo
+        };
         document.body.appendChild(script);
       })
       .catch((err) => console.error("Error al cargar header:", err));
