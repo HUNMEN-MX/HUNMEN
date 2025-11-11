@@ -49,8 +49,8 @@
           // Cargar el JS del menú
           const scriptMenu = document.createElement("script");
           scriptMenu.src = "../js/menu.js";
-          script.onload = () => {
-          if (typeof initMenu === "function") initMenu(); // 👈 inicializa tras cargarlo
+          scriptMenu.onload = () => {
+            if (typeof initMenu === "function") initMenu(); // 👈 inicializa tras cargarlo
           };
           document.body.appendChild(scriptMenu);
 
