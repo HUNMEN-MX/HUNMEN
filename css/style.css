@@ -77,7 +77,7 @@ body {
 /* Diapositiva 1 — Imagen + tono rosado pastel */
 #slide-1 {
   background: radial-gradient(circle at center, #ffe0eb 0%, #ffd6e0 60%, #fff0f5 100%);
-  background-image: url("../imagenes/Fondos_Principales/HunmenFondoHalloween_img1.webp");
+  background-image: url("../imagenes/Fondos_Principales/PortadaFondo_img1.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
