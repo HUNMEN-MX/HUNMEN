@@ -37,29 +37,6 @@
   <!-- Header dinámico -->
   <div id="header-placeholder"></div>
 
-    <!-- Scripts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Cargar header dinámico
-      fetch("../componentes/header.html")
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById("header-placeholder").innerHTML = html;
-
-          // Cargar el JS del menú
-          const scriptMenu = document.createElement("script");
-          scriptMenu.src = "../js/menu.js";
-          document.body.appendChild(scriptMenu);
-
-          // Cargar también navegador.js (el del slider y animaciones)
-          const scriptNav = document.createElement("script");
-          scriptNav.src = "../js/navegador.js";
-          document.body.appendChild(scriptNav);
-        })
-        .catch(err => console.error("Error al cargar el header:", err));
-    });
-  </script>
-
     <!-- Contenido principal -->
     <main class="slides-container">
 
@@ -174,9 +151,31 @@
     </main>
 
     <div class="dots"></div>
-    
-    <!-- Scripts -->
-    <script defer src="../js/navegador.js"></script>
-    <script defer src="../js/carrusel.js"></script>
+    <!-- ========================================================= -->
+  <!-- SCRIPTS — van al final del body para evitar bloqueos -->
+  <!-- ========================================================= -->
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("../componentes/header.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("header-placeholder").innerHTML = html;
+
+        // Cargar y ejecutar menú tras insertar el header
+        const scriptMenu = document.createElement("script");
+        scriptMenu.src = "../js/menu.js";
+        scriptMenu.onload = () => {
+          if (typeof initMenu === "function") initMenu();
+        };
+        document.body.appendChild(scriptMenu);
+      })
+      .catch(err => console.error("Error al cargar el header:", err));
+  });
+  </script>
+
+  <!-- Scripts de comportamiento general -->
+  <script defer src="../js/navegador.js"></script>
+  <script defer src="../js/carrusel.js"></script>
 </body>
 </html>
