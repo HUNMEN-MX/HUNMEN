@@ -9,7 +9,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const slidesContainer = document.querySelector(".slides-container");
-  const slides = document.querySelectorAll(".slide");
+  const slides = document.querySelectorAll(".slide, .slidef");
   const dotsContainer = document.querySelector(".dots");
 
   // Verifica que existan diapositivas en la página
