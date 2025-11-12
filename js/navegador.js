@@ -56,13 +56,33 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (event.deltaY < 0) goToSlide(currentSlide - 1);
   });
 
-  // Control táctil (swipe)
-  slidesContainer.addEventListener("touchstart", (e) => (startY = e.touches[0].clientY));
-  slidesContainer.addEventListener("touchend", (e) => {
-    const endY = e.changedTouches[0].clientY;
-    if (startY - endY > 50) goToSlide(currentSlide + 1);
-    else if (endY - startY > 50) goToSlide(currentSlide - 1);
-  });
+// Control táctil (swipe mejorado tipo Instagram)
+let isSwiping = false;
+
+slidesContainer.addEventListener("touchstart", (e) => {
+  if (isScrolling || isSwiping) return;
+  startY = e.touches[0].clientY;
+});
+
+slidesContainer.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+}, { passive: false });
+
+slidesContainer.addEventListener("touchend", (e) => {
+  if (isScrolling || isSwiping) return;
+
+  const endY = e.changedTouches[0].clientY;
+  const diff = startY - endY;
+
+  if (Math.abs(diff) < 50) return;
+
+  isSwiping = true;
+  if (diff > 0) goToSlide(currentSlide + 1);
+  else goToSlide(currentSlide - 1);
+
+  setTimeout(() => { isSwiping = false; }, 800);
+});
+
 
   // Actualizar dot activo al hacer scroll manual
   slidesContainer.addEventListener("scroll", () => {
