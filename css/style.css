@@ -25,7 +25,8 @@ body {
 .slides-container {
   height: 100vh;
   width: 100%;
-  overflow-y: auto;           /* ✅ Permite scroll natural que usa scrollIntoView() */
+  overflow: hidden;
+  position: relative;           
   scroll-behavior: smooth;    /* ✅ Suaviza desplazamientos */
   -webkit-overflow-scrolling: touch; /* ✅ Soporte iOS */
   overscroll-behavior: none;  /* ✅ Evita rebote en Android/iOS */

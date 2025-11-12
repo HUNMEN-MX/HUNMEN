@@ -38,7 +38,7 @@ function goToSlide(index) {
 setTimeout(() => {
   slides[index].scrollIntoView({
     behavior: "smooth",
-    block: "nearest"
+    block: "start"
   });
 }, 50);
 
@@ -84,19 +84,14 @@ slidesContainer.addEventListener("touchend", () => {
   isSwiping = false;
 });
 
-// Evitar rebote y actualizar dots al hacer scroll
+// Evitar rebote y sincronizar dots tras cada transición
 slidesContainer.addEventListener("scroll", () => {
-  const maxScroll = slidesContainer.scrollHeight - window.innerHeight;
-
-  if (slidesContainer.scrollTop <= 0) {
-    slidesContainer.scrollTop = 0;
-  } else if (slidesContainer.scrollTop >= maxScroll) {
-    slidesContainer.scrollTop = maxScroll;
-  }
-
-  const index = Math.round(slidesContainer.scrollTop / window.innerHeight);
-  if (index !== currentSlide) {
-    currentSlide = index;
-    updateDots();
-  }
+  clearTimeout(slidesContainer.scrollTimeout);
+  slidesContainer.scrollTimeout = setTimeout(() => {
+    const visibleSlide = Math.round(window.scrollY / window.innerHeight);
+    if (visibleSlide !== currentSlide) {
+      currentSlide = visibleSlide;
+      updateDots();
+    }
+  }, 150);
 });
