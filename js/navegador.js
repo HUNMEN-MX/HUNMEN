@@ -1,9 +1,10 @@
 /* =========================================================
-   navegador.js — Control tipo Instagram para diapositivas
+   navegador.js — Control global de transiciones tipo diapositiva
    =========================================================
-   - Un solo gesto de deslizamiento (sin importar longitud)
-     cambia de slide completa.
-   - Evita rebotes, scroll parcial y depende solo de la dirección.
+   Este script aplica el comportamiento de desplazamiento vertical
+   entre diapositivas (scroll y swipe) a cualquier página del sitio
+   que contenga un contenedor con clase .slides-container y secciones
+   .slide de altura completa.
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,88 +12,84 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".slide, .slidef");
   const dotsContainer = document.querySelector(".dots");
 
+  // Verifica que existan diapositivas en la página
   if (!slidesContainer || slides.length === 0) return;
 
   let currentSlide = 0;
-  let isTransitioning = false;
+  let isScrolling = false;
   let startY = 0;
-  let currentY = 0;
 
   // Crear los indicadores (dots)
-  slides.forEach((_, i) => {
+  slides.forEach((_, index) => {
     const dot = document.createElement("div");
     dot.classList.add("dot");
-    if (i === 0) dot.classList.add("active");
-    dot.addEventListener("click", () => goToSlide(i));
+    if (index === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(index));
     dotsContainer.appendChild(dot);
   });
   const dots = document.querySelectorAll(".dot");
 
-  // Función central de cambio de diapositiva
+  // Ir a una diapositiva específica
   function goToSlide(index) {
     if (index < 0 || index >= slides.length) return;
-    if (isTransitioning) return;
-
-    isTransitioning = true;
     currentSlide = index;
-
-    slides[index].scrollIntoView({
+    slidesContainer.scrollTo({
+      top: slides[index].offsetTop,
       behavior: "smooth",
-      block: "start"
     });
-
     updateDots();
-    setTimeout(() => (isTransitioning = false), 800);
   }
 
+  // Actualizar los indicadores visuales
   function updateDots() {
     dots.forEach(dot => dot.classList.remove("active"));
     if (dots[currentSlide]) dots[currentSlide].classList.add("active");
   }
 
-  /* =========================
-     CONTROL CON RUEDA (PC)
-  ========================= */
-  slidesContainer.addEventListener("wheel", (e) => {
-    if (isTransitioning) return;
-    e.preventDefault();
-    if (e.deltaY > 0) goToSlide(currentSlide + 1);
-    else if (e.deltaY < 0) goToSlide(currentSlide - 1);
-  }, { passive: false });
+  // Desplazamiento con rueda del ratón
+  slidesContainer.addEventListener("wheel", (event) => {
+    if (isScrolling) return;
+    isScrolling = true;
+    setTimeout(() => (isScrolling = false), 800); // control del tiempo entre scrolls
 
-  /* =========================
-     CONTROL TÁCTIL (INSTAGRAM)
-  ========================= */
-  slidesContainer.addEventListener("touchstart", (e) => {
-    startY = e.touches[0].clientY;
-    currentY = startY;
-  }, { passive: true });
+    if (event.deltaY > 0) goToSlide(currentSlide + 1);
+    else if (event.deltaY < 0) goToSlide(currentSlide - 1);
+  });
 
-  slidesContainer.addEventListener("touchmove", (e) => {
-    currentY = e.touches[0].clientY;
-  }, { passive: true });
+// Control táctil (swipe mejorado tipo Instagram)
+let isSwiping = false;
 
-  slidesContainer.addEventListener("touchend", () => {
-    const deltaY = startY - currentY;
+slidesContainer.addEventListener("touchstart", (e) => {
+  if (isScrolling || isSwiping) return;
+  startY = e.touches[0].clientY;
+});
 
-    // Sin importar longitud del swipe → cambia una sola diapositiva
-    if (Math.abs(deltaY) > 10) {
-      if (deltaY > 0) goToSlide(currentSlide + 1);
-      else goToSlide(currentSlide - 1);
-    }
-  }, { passive: true });
+slidesContainer.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+}, { passive: false });
 
-  /* =========================
-     ACTUALIZAR DOTS EN SCROLL
-  ========================= */
+slidesContainer.addEventListener("touchend", (e) => {
+  if (isScrolling || isSwiping) return;
+
+  const endY = e.changedTouches[0].clientY;
+  const diff = startY - endY;
+
+  if (Math.abs(diff) < 50) return;
+
+  isSwiping = true;
+  if (diff > 0) goToSlide(currentSlide + 1);
+  else goToSlide(currentSlide - 1);
+
+  setTimeout(() => { isSwiping = false; }, 800);
+});
+
+
+  // Actualizar dot activo al hacer scroll manual
   slidesContainer.addEventListener("scroll", () => {
-    clearTimeout(slidesContainer._scrollTimer);
-    slidesContainer._scrollTimer = setTimeout(() => {
-      const index = Math.round(slidesContainer.scrollTop / window.innerHeight);
-      if (index !== currentSlide) {
-        currentSlide = index;
-        updateDots();
-      }
-    }, 100);
+    const index = Math.round(slidesContainer.scrollTop / window.innerHeight);
+    if (index !== currentSlide) {
+      currentSlide = index;
+      updateDots();
+    }
   });
 });
