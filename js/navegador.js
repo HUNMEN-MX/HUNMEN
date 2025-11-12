@@ -30,15 +30,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const dots = document.querySelectorAll(".dot");
 
   // Ir a una diapositiva específica
-  function goToSlide(index) {
-    if (index < 0 || index >= slides.length) return;
-    currentSlide = index;
-    slidesContainer.scrollTo({
-      top: slides[index].offsetTop,
-      behavior: "smooth",
-    });
-    updateDots();
-  }
+function goToSlide(index) {
+  if (index < 0 || index >= slides.length) return;
+  currentSlide = index;
+
+  // Desplaza suavemente la diapositiva al centro de la vista
+setTimeout(() => {
+  slides[index].scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
+}, 50);
+
+  updateDots();
+}
+
 
   // Actualizar los indicadores visuales
   function updateDots() {
@@ -56,40 +62,41 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (event.deltaY < 0) goToSlide(currentSlide - 1);
   });
 
-// Control táctil (swipe mejorado tipo Instagram)
+// Swipe control tipo Instagram — siempre una diapositiva por gesto (sin bloquear scroll nativo)
 let isSwiping = false;
 
+
 slidesContainer.addEventListener("touchstart", (e) => {
-  if (isScrolling || isSwiping) return;
   startY = e.touches[0].clientY;
-});
+  isSwiping = false;
+}, { passive: true });
 
 slidesContainer.addEventListener("touchmove", (e) => {
-  e.preventDefault();
-}, { passive: false });
+  const deltaY = startY - e.touches[0].clientY;
+  if (Math.abs(deltaY) > 50 && !isSwiping) {
+    isSwiping = true;
+    if (deltaY > 0) goToSlide(currentSlide + 1);
+    else goToSlide(currentSlide - 1);
+  }
+}, { passive: true });
 
-slidesContainer.addEventListener("touchend", (e) => {
-  if (isScrolling || isSwiping) return;
-
-  const endY = e.changedTouches[0].clientY;
-  const diff = startY - endY;
-
-  if (Math.abs(diff) < 50) return;
-
-  isSwiping = true;
-  if (diff > 0) goToSlide(currentSlide + 1);
-  else goToSlide(currentSlide - 1);
-
-  setTimeout(() => { isSwiping = false; }, 800);
+slidesContainer.addEventListener("touchend", () => {
+  isSwiping = false;
 });
 
+// Evitar rebote y actualizar dots al hacer scroll
+slidesContainer.addEventListener("scroll", () => {
+  const maxScroll = slidesContainer.scrollHeight - window.innerHeight;
 
-  // Actualizar dot activo al hacer scroll manual
-  slidesContainer.addEventListener("scroll", () => {
-    const index = Math.round(slidesContainer.scrollTop / window.innerHeight);
-    if (index !== currentSlide) {
-      currentSlide = index;
-      updateDots();
-    }
-  });
+  if (slidesContainer.scrollTop <= 0) {
+    slidesContainer.scrollTop = 0;
+  } else if (slidesContainer.scrollTop >= maxScroll) {
+    slidesContainer.scrollTop = maxScroll;
+  }
+
+  const index = Math.round(slidesContainer.scrollTop / window.innerHeight);
+  if (index !== currentSlide) {
+    currentSlide = index;
+    updateDots();
+  }
 });

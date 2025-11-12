@@ -25,10 +25,12 @@ body {
 .slides-container {
   height: 100vh;
   width: 100%;
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  overflow-y: auto;           /* ✅ Permite scroll natural que usa scrollIntoView() */
+  scroll-behavior: smooth;    /* ✅ Suaviza desplazamientos */
+  -webkit-overflow-scrolling: touch; /* ✅ Soporte iOS */
+  overscroll-behavior: none;  /* ✅ Evita rebote en Android/iOS */
 }
+
 
 /* Cada diapositiva */
 .slide {
@@ -38,19 +40,22 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  scroll-snap-align: start;
   position: relative;
   text-align: center;
   padding: 5%;
+  scroll-snap-align: none; /* 🔹 lo maneja JS */
+  transition: transform 0.8s ease, opacity 0.5s ease;
+  will-change: transform, opacity; /* 🔹 acelera la animación por GPU */
 }
 
-/* Contenido dentro de cada diapositiva 
-.slide-content {
-  z-index: 2;
-  max-width: 80%;
-  padding: 2%;
-  animation: fadeInUp 1s ease forwards;
-} */
+@supports (-webkit-overflow-scrolling: touch) {
+  .slide {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
  .slide-content {
   z-index: 2;
   max-width: 80%;
@@ -368,3 +373,27 @@ body {
   }
 }
 
+/* ======================== CONTROL TÁCTIL ======================== */
+html, body {
+  overscroll-behavior: none; /* 🔹 evita rebotes del scroll */
+  touch-action: pan-y;       /* 🔹 permite desplazamiento vertical natural */
+}
+
+/* ======================== OPTIMIZACIÓN MÓVIL EXTRA ======================== */
+@supports (-webkit-touch-callout: none) {
+  .slides-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    transition: transform 0.9s ease;
+  }
+}
+/* ✅ Fallback universal si el dispositivo no soporta will-change */
+@supports not (will-change: transform) {
+  .slide {
+    transition: all 0.8s ease;
+  }
+}
