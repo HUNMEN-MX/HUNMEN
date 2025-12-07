@@ -452,10 +452,6 @@ body {
   .slide .flecha {
     bottom: 12vh; /* más arriba que antes */
   }
-  /* Flecha hacia arriba */
-  .flecha-arriba {
-    bottom: 16vh; /* sube un poco más */
-  }
 
   .slide-content {
     max-width: 90%;

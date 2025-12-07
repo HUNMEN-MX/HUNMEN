@@ -73,6 +73,10 @@ body {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
 }
 
+.slide .info .links a {
+  font-size: 1.2rem; /* más grande que 1rem, ajusta según prefieras */
+}
+
 /* Fondos pastel kawaii */
 /* Rosa pastel */
 #slide-1 {
