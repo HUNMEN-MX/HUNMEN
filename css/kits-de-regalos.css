@@ -1,292 +1,487 @@
-/* ======================== ESTILOS GENERALES ======================== */
+
+/* =========================================================
+   style.css — Estilos base del index principal (diapositivas)
+   ========================================================= */
+
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+.slide .titulo,
+.slide .descripcion {
+  opacity: 1;
+}
+
+/* Configuración general */
+html,
 body {
-  font-family: 'Lora', serif;
-  color: #222;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Lora", serif;
+  background-color: #0d0d0d;
+  color: #000000;
+  font-size: 100%; /* base 16px relativa */
+  -webkit-text-size-adjust: none;
 }
 
-html {
-  scroll-behavior: auto; /* quitamos smooth global */
-  -webkit-text-size-adjust: 100%; /* Evita que Safari reduzca o aumente texto automáticamente */
+/* Contenedor de todas las diapositivas */
+.slides-container {
+  height: 100vh;
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
-/* ======================== ESTRUCTURA DE DIAPOSITIVAS ======================== */
-main {
+/* Cada diapositiva */
+.slide {
+  height: 100vh;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-}
-
-.diapositiva {
-  height: 100vh; /* Cada sección ocupa toda la pantalla */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  scroll-snap-align: start;
+  position: relative;
   text-align: center;
-  padding: 2rem;
+  padding: 5%;
+}
+
+/* Contenido dentro de cada diapositiva */
+.slide-content {
+  z-index: 2;
+  max-width: 80%;
+  padding: 2%;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Tipografía fluida con clamp */
+.slide h1{
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 2%;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.slide p {
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 3%;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+}
+
+/* Fondos pastel kawaii */
+/* Rosa pastel */
+#slide-1 {
+  background: linear-gradient(180deg, #ffd6e0 0%, #ffeaf2 100%);
+}
+/* Verde menta pastel */
+#slide-2 {
+  background: linear-gradient(180deg, #d8ffe8 0%, #edfff5 100%);
+}
+/* Azul bebé pastel */
+#slide-3 {
+  background: linear-gradient(180deg, #d9eaff 0%, #eef4ff 100%);
+}
+/* Lila pastel */
+#slide-4 {
+  background: linear-gradient(180deg, #e8d9ff 0%, #f5eeff 100%);
+}
+/* Durazno pastel */
+#slide-5 {
+  background: linear-gradient(180deg, #ffe2d1 0%, #fff0e8 100%);
+}
+/* Amarillo suave pastel */
+#slide-6 {
+  background: linear-gradient(180deg, #fff7d1 0%, #fffbe8 100%);
+}
+/* Turquesa pastel */
+#slide-7 {
+  background: linear-gradient(180deg, #d7faff 0%, #edfdff 100%);
+}
+#final {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
+}
+
+/* Indicadores (puntos) */
+.dots {
+  position: fixed;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  z-index: 10;
+}
+
+.dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background-color: #ff9ecb;
+}
+
+/**//**//**//**//**/
+
+/* === Layout slide: carrusel izq / texto der (NO afecta #final) === */
+.slide .slide-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* carrusel: ocupa la izquierda */
+.slide .carrusel {
+  position: relative;
+  flex: 0 0 48%;
+  max-width: 48%;
+  min-width: 300px;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* pista que contiene slides internas */
+.slide .carrusel-track {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   position: relative;
 }
 
-#KitRegalo7 {
-  height: auto;
-  min-height: 73vh;
+/* cada "imagen" del carrusel */
+.slide .carrusel-slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 360ms ease, transform 360ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide .carrusel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+/* slide visible */
+.slide .carrusel-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
+}
+
+/* controles prev/next dentro del carrusel */
+.slide .carrusel .prev,
+.slide .carrusel .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* posicionamiento */
+.slide .carrusel .prev { left: 8px; }
+.slide .carrusel .next { right: 8px; }
+
+/* ocultar botones si no se usan (JS pondrá .hidden) */
+.slide .carrusel .prev.hidden,
+.slide .carrusel .next.hidden {
+  display: none;
+}
+
+/* derecha: texto */
+.slide .info {
+  flex: 0 0 48%;
+  max-width: 48%;
+  min-width: 260px;
+  text-align: left;
+}
+
+/* título y subtítulos */
+.slide .info .titulo {
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.slide .info .subtitulo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* flor/icono */
+.slide .info .subtitulo .flor {
+  font-size: 1.1rem;
+  margin-top: 2px;
+}
+
+/* links estilo inline */
+.slide .info .links {
+  margin-left: 0.2rem;
+}
+
+.slide .info .links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #7c2a8c;
+  margin: 0 0.3rem;
+}
+
+/* Asegurar flecha centrada abajo en cada slide (sin tocar #final) */
+.slide .flecha {
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+}
+
+/* RESPONSIVE: en móvil colocamos imagen arriba y texto abajo */
+@media (max-width: 768px) {
+  .slide .slide-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .slide .carrusel {
+    width: 92%;
+    max-width: 92%;
+    height: 46vh;
+    min-width: auto;
+  }
+
+  .slide .info {
+    width: 92%;
+    max-width: 92%;
+    text-align: center;
+  }
+
+  .slide .info .subtitulo {
+    justify-content: center;
+  }
+
+  /* flecha permanece centrada */
+  .slide .flecha {
+    bottom: 4%;
+  }
+}
+
+
+/**//**//**//**//**/
+
+
+/**/
+/* ======================== DIAPOSITIVA FINAL ======================== */
+#final {
+  background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
+  height: 100vh;
+  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 4rem;
+  flex-direction: row;
+  text-align: left;
+  gap: 3rem;
+  scroll-snap-align: start;
+  position: relative;
 }
 
-/* ======================== CONTENIDO ======================== */
-.titulo {
-  font-size: 2.5rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
+#final .slide-contentf {
+  flex: 0 0 60%;
+  padding-right: 2rem;
+  z-index: 2;
 }
 
-.descripcion {
-  font-style: italic;
-  margin-top: 1rem;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 2s ease;
+#final .titulof {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 1rem;
 }
 
-/* ======================== ANIMACIÓN DE ENTRADA ======================== */
-.diapositiva.visible .titulo,
-.diapositiva.visible .descripcion {
-  opacity: 1;
-  transform: translateY(0);
+#final .descripcionf {
+  font-size: 1.2rem;
+  color: #7c2a8c;
+  line-height: 1.6em;
+  margin-bottom: 1rem;
 }
 
-/* ======================== FLECHA ======================== */
+#final .imagen-derechaf {
+  flex: 0 0 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#final .imagen-derechaf img {
+  width: 70%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  #final {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+  }
+
+  /* ✨ Nuevo: desplazamiento hacia abajo del contenido */
+  #final .slide-contentf {
+    flex: none;
+    max-width: 90%;
+    margin: 26% auto 0 auto; /* 10% del alto de la pantalla */
+    padding: 0;
+  }
+
+  #final .titulof {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  #final .slide-contentf p {
+  margin-bottom: 0rem; /* reduce separación entre párrafos */
+  }
+
+  #final .descripcionf {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  #final .imagen-derechaf {
+    margin-top: -2rem;
+    justify-content: center;
+  }
+
+  #final .imagen-derechaf img {
+    width: 65%;
+    max-width: 320px;
+  }
+}
+/**/
+/* ======================== FLECHA ABAJO ======================== */
 .flecha {
   position: absolute;
-  bottom: 20px;
+  bottom: 10%; /* 🔹 Subida un 10% del alto de la sección */
+  left: 50%; /* 🔹 Centrada horizontalmente */
+  transform: translateX(-50%);
   font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
+  color: #86008f;
   animation: moverFlecha 1.5s infinite alternate;
 }
 
 @keyframes moverFlecha {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, 10px); }
 }
 
-/* ==================== FLECHA ARRIBA ================== */
+/* ======================== FLECHA ARRIBA ======================== */
 .flecha-arriba {
   position: absolute;
-  bottom: 20px;
+  bottom: 14%; /* 🔹 También más arriba */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 2rem;
-  color: #00bfff; /* 💙 color azul celeste */
+  color: #86008f;
   animation: moverFlechaArriba 1.5s infinite alternate;
 }
 
 @keyframes moverFlechaArriba {
-  from { transform: translateY(0); }
-  to { transform: translateY(10px); }
+  from { transform: translate(-50%, 0); }
+  to { transform: translate(-50%, -10px); } /* 🔹 Animación hacia arriba */
 }
 
-/* ======================== INDICADORES LATERALES ======================== */
-.indicadores {
-  position: fixed;
-  right: 25px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ======================== ============= ======================== */
+/* ===== COPYRIGHT (para la última diapositiva) ===== */
+#final {
+  position: relative; /* permite posicionar el footer internamente */
 }
 
-.punto {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #94b551;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.punto.activo {
-  background: #86008f;
-}
-
-/* ======================== COLORES DE SECCIONES ======================== */
-
-#KitRegalo1 { background: #FFFAE1; }              /* Crema pastel */
-#KitRegalo2 { background: #E1FFFB; }                 /* Aqua muy suave */
-#KitRegalo3 { background: #FBE1FF; }                /* Lila rosado */
-#KitRegalo4 { background: #FFF0F5; }                 /* Rosita helado */
-#KitRegalo5 { background: #E1FFF1; }         /* Verde menta pálido */
-#KitRegalo6 { background: #F1E8FF; }        /* Malva pastel */
-#KitRegalo7 { background: #E6E6FF; }        /* Lavanda cielo */
-
-
-
-
-  /* ===== ESTILO RESPONSIVE PARA LA ÚLTIMA DIAPOSITIVA ===== */
-@media (max-width: 768px) {
-  #KitRegalo7 {
-    min-height: 76vh;  /* más alta en móvil */
-  }
-}
-/* =========================================================
-   ADICIÓN MÍNIMA Y SEGURA: CARRUSEL PARA #octagonales
-   - Añadir AL FINAL de cera-de-soya.css
-   - Asegura que las imágenes llenen el recuadro sin deformarse
-   ========================================================= */
-
-/* Contenedor principal de la sección */
-#KitRegalo1 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-/* Contenedor interno: imagen + texto */
-.contenido-diapositiva {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.info-kit-regalo {
-  text-align: left;
-}
-
-/* Títulos dentro de info-vela */
-.info-kit-regalo h2,
-.info-kit-regalo h3 {
-  margin-bottom: 10px;  /* espacio entre títulos y demás contenido */
-}
-
-/* Opciones con enlaces */
-.info-kit-regalo .paquetes a {
-  display: inline-block;   /* para que se vean como elementos individuales */
-  margin-right: 10px;      /* espacio entre enlaces */
-  text-decoration: none;   /* quitar subrayado si quieres */
-}
-
-/* Viñetas opcionales para h3 */
-.info-kit-regalo h3::before {
-  content: "🌸 ";           /* viñeta personalizada */
-}
-
-.info-kit-regalo {
-  font-size: 2rem;    /* ajusta este valor según lo grande que quieras el título */
-  font-weight: bold;  /* opcional: que se vea más destacado */
-}
-
-.titulo-general {
-  margin-bottom: 30px; /* ajusta el valor según cuánto quieras separarlo */
-}
-
-/* ===== Carrusel ===== */
-.carrusel {
-  position: relative;
-  width: 462px;
-  height: 260px;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
-
-/* Cada slide */
-.slide {
-  display: none;
-  width: 100%;
-  height: 100%;
-}
-.slide.active {
-  display: block;
-}
-
-/* Imágenes dentro del carrusel */
-.carrusel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;        /* ✅ Llenar el cuadro sin deformar */
-  object-position: center;  /* ✅ Centrada al recortar */
-  display: block;
-  background-color: #fff;   /* ✅ Fondo por si hay transparencias */
-}
-
-/* Flechas de control */
-.carrusel .prev,
-.carrusel .next {
+#final .footer-copy {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: rgba(255,255,255,0.9);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-size: 18px;
-  line-height: 36px;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  cursor: pointer;
-  display: none; /* el JS las muestra si hay más de 1 slide */
-}
-.carrusel .prev { left: 8px; }
-.carrusel .next { right: 8px; }
-
-/* Información textual (lado derecho) */
-.info-kit-regalo {
-  flex: 1;
-  min-width: 260px;
-  max-width: 620px;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  color: #353535;
+  opacity: 0.8;
+  width: 100%;
+  padding: 0.5rem;
 }
 
-/* Enlaces de paquetes */
-.paquetes a {
-  text-decoration: none;
-  font-weight: 600;
-  margin: 0 6px;
-}
-
-/* ===== Responsive ===== */
+/* En móviles, bajamos un poco más por si hay margen inferior del navegador */
 @media (max-width: 768px) {
-  .contenido-diapositiva {
-    flex-direction: column;
-    text-align: center;
-    gap: 18px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .titulo-general {
-    display: none;
-  }
-
-  .info-kit-regalo {
-    font-size: 0.8rem; /* tamaño más pequeño en celular */
-  }
-
-  .info-kit-regalo h3 {
-    font-size: 0.8rem; /* si quieres que aún estén más parejos */
-  }
-  
-  .carrusel {
-    width: 360px;
-    height: 203px;
-    margin-top: 100px; /* ajusta el valor: 20px, 30px, etc. */
-  }
-
-  .info-kit-regalo {
-    max-width: 92%;
+  #final .footer-copy {
+    bottom: 4%;
+    font-size: 0.9rem;
   }
 }
-/* Ajuste específico para la primera imagen panorámica */
-.slide:first-child img {
-  object-fit: cover;
-  object-position: center top; /* mueve el recorte hacia arriba */
+
+/**/
+
+/**/
+/* Adaptabilidad móvil */
+@media (max-width: 768px) {
+  .slide-content {
+    max-width: 90%;
+    padding: 4%;
+  }
+
+  .dots {
+    right: 2%;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* Safari/iOS */
+  body {
+    font-size: 100%;
+  }
 }
