@@ -83,6 +83,39 @@ slidesContainer.addEventListener("touchend", (e) => {
   setTimeout(() => { isSwiping = false; }, 800);
 });
 
+  // ⬇⬇ AGREGADO — Actualizar dots en scroll con teclado, rueda o arrastre manual
+  slidesContainer.addEventListener("scroll", () => {
+    let index = 0;
 
+    slides.forEach((slide, i) => {
+      const slideTop = slide.offsetTop;
+      if (slidesContainer.scrollTop >= slideTop - window.innerHeight / 2) {
+        index = i;
+      }
+    });
+
+    if (index !== currentSlide) {
+      currentSlide = index;
+      updateDots();
+    }
+  });
+  // ⬆⬆ FIN DE LO AGREGADO
+  // Navegación con teclado (solo en escritorio)
+  document.addEventListener("keydown", (e) => {
+    if (isScrolling) return;
+
+    // Evita repetir la acción si se deja presionada la tecla
+    if (e.repeat) return;
+
+    if (e.key === "ArrowDown" || e.key === "PageDown") {
+      e.preventDefault();
+      goToSlide(currentSlide + 1);
+    }
+
+    if (e.key === "ArrowUp" || e.key === "PageUp") {
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+    }
+  });
 
 });
