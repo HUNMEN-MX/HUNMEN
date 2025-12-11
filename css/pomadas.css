@@ -100,7 +100,7 @@ body {
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: #94b551;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -110,7 +110,7 @@ body {
 }
 
 .dot.active {
-  background-color: #ff9ecb;
+  background-color: #86008f;
 }
 
 /**//**//**//**//**/
@@ -229,7 +229,6 @@ body {
 /* flor/icono */
 .slide .info .subtitulo .flor {
   font-size: clamp(1.2rem, 1.4vw, 1.6rem);
-  margin-top: 2px;
   margin-left: 1.5rem;
 }
 
@@ -237,17 +236,13 @@ body {
 .slide .info .links {
   display: flex;
   align-items: flex-start;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
   font-size: clamp(1.6rem, 2vw, 2.2rem);
-  margin-left: 3rem;
 }
 
 .slide .info .links a {
   text-decoration: none;
   font-weight: 600;
   color: #7c2a8c;
-  margin: 0 0.3rem;
 }
 
 /* Asegurar flecha centrada abajo en cada slide (sin tocar #final) */

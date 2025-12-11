@@ -116,7 +116,7 @@ body {
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: #94b551;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -126,8 +126,9 @@ body {
 }
 
 .dot.active {
-  background-color: #ff9ecb;
+  background-color: #86008f;
 }
+
 
 /**//**//**//**//**/
 
@@ -254,7 +255,6 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  margin-bottom: 1rem;
   font-size: clamp(1.6rem, 2vw, 2.2rem);
   margin-left: 3rem;
 }

@@ -1,135 +1,145 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- ===== METADATOS SEO ===== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ===== METADATOS SEO ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hunmen | Kits de regalo</title>
-  <meta name="description" content="Hunmen - shampoo sólido">
-  <meta name="keywords" content="Hunmen, shampoo sólido, ducha, productos artesanales, champú sólido">
-  <meta name="author" content="Hunmen">
+    <title>Hunmen | Pomadas</title>
+    <meta name="description" content="Hunmen - Shampoo sólido">
+    <meta name="keywords" content="Hunmen, shampoo sólido, ducha, productos artesanales, champú sólido">
+    <meta name="author" content="Hunmen">
 
-  <!-- ===== FAVICON ===== -->
-  <!-- Favicon SVG para navegadores modernos -->
-  <link rel="icon" href="../imagenes/Hunmen_Logo/Logo_CuadradoBlanco.svg" type="image/svg+xml">
-  <!-- Favicon ICO como fallback -->
-  <!-- <link rel="alternate icon" href="imagenes/Hunmen_Logo/favicon.ico" type="image/x-icon"> -->
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" href="imagenes/Hunmen_Logo/favicon.svg" type="image/svg+xml">
+    <!-- Favicon clásico para compatibilidad máxima -->
+    <link rel="shortcut icon" href="imagenes/Hunmen_Logo/favicon.ico" type="image/x-icon">
 
-  <!-- ===== OPEN GRAPH (para redes sociales y vista previa en enlaces) ===== -->
-  <meta property="og:title" content="Hunmen | shampoo sólido">
-  <meta property="og:description" content="shampoo sólido">
-  <!-- <meta property="og:image" content="https://www.hunmen.com.mx/imagenes/Portada/hunmen_portada.jpg"> -->
-  <meta property="og:url" content="https://www.hunmen.com.mx/shampoo-solido">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_MX">
+    <!-- ===== OPEN GRAPH ===== -->
+    <meta property="og:title" content="Hunmen | Shampoo sólido">
+    <meta property="og:description" content="Shampoo sólido">
+    <meta property="og:url" content="https://www.hunmen.com.mx/shampoo-solido">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:image" content="https://www.hunmen.com.mx/favicon.svg">
+    <meta property="og:site_name" content="Hunmen">
 
-  <!-- ===== FUENTE LORA ===== -->
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- ===== ARCHIVOS CSS ===== -->
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/header.css"> <!-- ✅ ruta corregida -->
+  <link rel="stylesheet" href="../css/menu.css">   <!-- ✅ importante para el menú -->
   <link rel="stylesheet" href="../css/shampoo-solido.css">
-  <link rel="stylesheet" href="../css/header-general.css">
-  <link rel="stylesheet" href="../css/footer.css">
-
-  <!-- ===== MENU FLOTANTE ===== -->
-  <link rel="stylesheet" href="../css/menu.css">
-
-
-  <!-- ===== SCRIPTS PRINCIPALES ===== -->
-  <script src="../js/cargar-componentes.js" defer></script>
-  <script src="../js/scroll.js" defer></script>
-  <script src="../js/menu.js" defer></script>
 </head>
 
 <body>
+  <!-- Header dinámico -->
+  <div id="header-placeholder"></div>
 
-  <!-- ===== CABECERA PRINCIPAL ===== -->
-  <header id="header-general"></header>
+    <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Cargar header dinámico
+      fetch("../componentes/header.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("header-placeholder").innerHTML = html;
 
-  <!-- ===== SECCIONES DE LA PÁGINA PRINCIPAL ===== -->
-  <main>
+          // Cargar el JS del menú
+          const scriptMenu = document.createElement("script");
+          scriptMenu.src = "../js/menu.js";
+          scriptMenu.onload = () => {
+            if (typeof initMenu === "function") initMenu(); // 👈 inicializa tras cargarlo
+          };
+          document.body.appendChild(scriptMenu);
 
-    <!-- DIAPOSITIVA FINAL 2 -->
-<section class="diapositiva ShampooSolido1" id="ShampooSolido1">
-  <div class="contenido-diapositiva">
-    <!-- Carrusel de imágenes -->
-    <div class="carrusel">
-      <div class="slides">
-        <!-- Por ahora solo una imagen -->
-        <div class="slide active">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-AJR.webp" alt="Shampoo Solido 1">
-        </div>
+          // Cargar también navegador.js (el del slider y animaciones)
+          const scriptNav = document.createElement("script");
+          scriptNav.src = "../js/navegador.js";
+          document.body.appendChild(scriptNav);
+        })
+        .catch(err => console.error("Error al cargar el header:", err));
+    });
+  </script>
 
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-CMO.webp" alt="Shampoo Solido 2">
-        </div>
+    <!-- Contenido principal -->
+    <main class="slides-container">
 
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-Coco.webp" alt="Shampoo Solido 3">
-        </div>
-        
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-CT1.webp" alt="Shampoo Solido 4">
-        </div>
-        
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-FC.webp" alt="Shampoo Solido 5">
-        </div>
-        
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-MLC.webp" alt="Shampoo Solido 6">
-        </div>        
-
-        <div class="slide">
-          <img src="../imagenes/Contenido/ShampooSolido/SS-PV.webp" alt="Shampoo Solido 7">
-        </div>
-        
+<section class="slide" id="slide-1">
+  <div class="slide-inner">
+    <!-- IZQUIERDA: CARRUSEL (usa la clase .carrusel por slide) -->
+    <div class="carrusel" aria-roledescription="carousel">
+      <div class="carrusel-track">
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-AJR.webp" alt="Shampoo Solido 1"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-CMO.webp" alt="Shampoo Solido 2"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-Coco.webp" alt="Shampoo Solido 3"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-CT1.webp" alt="Shampoo Solido 4"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-FC.webp" alt="Shampoo Solido 5"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-MLC.webp" alt="Shampoo Solido 6"></div>
+        <div class="carrusel-slide"><img src="../imagenes/Contenido/ShampooSolido/SS-PV.webp" alt="Shampoo Solido 7"></div>
       </div>
-      <!-- Controles del carrusel -->
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
+      <!-- controles (se muestran solo si hay >1 imagen; JS los habilita) -->
+      <button class="prev" aria-label="Anterior" type="button">&lt;</button>
+      <button class="next" aria-label="Siguiente" type="button">&gt;</button>
     </div>
-    <!-- Información de herbolaria -->
-    <div class="info-shampoo">
-      <div class="opcion">
-        <div class="paquetes">
-          <h3><a href="https://www.mercadolibre.com.mx/shampoo-solido-100-gr/up/MLMU591557624" target="_blank">Shampoo sólido de 100 gr.</a></h3>
-          <h3><a href="https://www.mercadolibre.com.mx/shampoo-solido-pack-3/up/MLMU585414305" target="_blank">Pack de 3 shampoos sólidos de 100 gr.</a></h3>
-          <h3><a href="https://www.mercadolibre.com.mx/shampoo-solido-pack-5--serum-capilar-y-exfoliante/up/MLMU586928361" target="_blank">Shampoo sólido con sérum capilar y exfoliante</a></h3>
+    <!-- DERECHA: TEXTO -->
+    <div class="info">
+      <h1 class="titulo">Flor seca siempreviva</h1>
+
+      <div class="subtitulo">
+        <span class="flor" aria-hidden="true">🌸</span>
+        <div class="links">
+          <a href="https://www.mercadolibre.com.mx/shampoo-solido-100-gr/up/MLMU591557624" target="_blank">Shampoo sólido de 100 gr.</a>
         </div>
       </div>
+
+      <div class="subtitulo">
+        <span class="flor" aria-hidden="true">🌸</span>
+        <div class="links">
+          <a href="https://www.mercadolibre.com.mx/shampoo-solido-pack-3/up/MLMU585414305" target="_blank">Pack de 3 shampoos sólidos de 100 gr.</a>
+        </div>
+      </div>
+
+      <div class="subtitulo">
+        <span class="flor" aria-hidden="true">🌸</span>
+        <div class="links">
+          <a href="https://www.mercadolibre.com.mx/shampoo-solido-pack-5--serum-capilar-y-exfoliante/up/MLMU586928361" target="_blank">Shampoo sólido con sérum capilar y exfoliante</a>
+        </div>
+      </div>
+
+
     </div>
   </div>
-      <div class="flecha-arriba">&#9650;</div>
+
+  <!-- FLECHA (usa la misma .flecha que ya tienes; queda centrada abajo) -->
+  <div class="flecha">&#9660;</div>
 </section>
-  </main>
-  
-  <!-- ===== PIE DE PÁGINA ===== -->
-<div id="footer-general"></div>
-<script>
-  fetch('../componentes/footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer-general').innerHTML = data;
-    })
-    .catch(err => console.error('Error cargando footer:', err));
-</script>
 
+    <section class="slidef" id="final">
+      <div class="slide-contentf">
+        <h1 class="titulof">Envíos a todo México</h1>
+        <p class="descripcionf">
+          Para mayor comodidad y seguridad, empleamos Mercado Libre como plataforma de logística y envíos.
+        </p>
+        <p class="descripcionf">
+          Es importante que revisen las fechas de entrega que marca Mercado Libre, pues es el encargado de enviar los productos.
+        </p>
+      </div>
+      <div class="imagen-derechaf">
+        <img src="../imagenes/Metodos_pago/Contacto1_img1.webp" alt="Envios a todo México">
+      </div>
+      <div class="footer-copy">
+      <p>&copy; 2025 Hunmen. Todos los derechos reservados.</p>
+      </div>
+      <div class="flecha-arriba">&#9650;</div>
+    </section>
+    </main>
 
-  <!-- ===== INDICADORES LATERALES ===== -->
-  <div class="indicadores">
-    <span class="punto activo" data-seccion="ShampooSolido1"></span>
-  </div>
-
-  <!-- ===== ARCHIVOS JS ===== -->
-<script src="../js/menu.js" defer></script>
-<script src="../js/scroll.js" defer></script>
-<script src="../js/cargar-componentes.js" defer></script>
-<script src="../js/carrusel.js" defer></script>  
-
+    <div class="dots"></div>
+    
+    <!-- Scripts -->
+    <script defer src="../js/navegador2.js"></script>
+    <script defer src="../js/carrusel.js"></script>
 </body>
-
 </html>
