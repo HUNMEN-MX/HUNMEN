@@ -209,31 +209,38 @@ body {
   text-align: left;
 }
 
-/* título y subtítulos */
+/* título */
 .slide .info .titulo {
-  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-size: clamp(2.2rem, 2.6vw, 3.2rem);
   font-weight: 700;
   margin-bottom: 1rem;
   color: #222;
 }
 
+/* Subtítulo */
 .slide .info .subtitulo {
   display: flex;
-  align-items: flex-start;
   gap: 0.8rem;
+  align-items: center;
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
 }
 
 /* flor/icono */
 .slide .info .subtitulo .flor {
-  font-size: 1.1rem;
+  font-size: clamp(1.2rem, 1.4vw, 1.6rem);
   margin-top: 2px;
+  margin-left: 1.5rem;
 }
 
-/* links estilo inline */
+/* URLs */
 .slide .info .links {
-  margin-left: 0.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  margin-left: 3rem;
 }
 
 .slide .info .links a {
@@ -276,6 +283,14 @@ body {
 
   .slide .info .subtitulo {
     justify-content: center;
+    margin-left: 0rem;
+    font-size: clamp(1.2rem, 1.4vw, 1.6rem);
+  }
+
+  .slide .info .links {
+    justify-content: center;
+    margin-left: 0rem;
+    font-size: clamp(1.2rem, 1.4vw, 1.6rem);
   }
 
   /* flecha permanece centrada */
@@ -285,10 +300,6 @@ body {
 }
 
 
-/**//**//**//**//**/
-
-
-/**/
 /* ======================== DIAPOSITIVA FINAL ======================== */
 #final {
   background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
