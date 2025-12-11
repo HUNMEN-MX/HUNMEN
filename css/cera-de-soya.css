@@ -74,6 +74,7 @@ body {
 }
 
 /* Fondos pastel kawaii */
+/* Fondos pastel kawaii */
 #Octagonal { background: #FFD8E8; }            /* Rosa pastel */
 #OctagonalFlor { background: #F3E1FF; }        /* Lila pastel */
 #OctagonalLazo { background: #D8F8E1; }        /* Verde menta suave */
@@ -139,33 +140,28 @@ body {
   width: 100%;
   max-width: 1200px;
 }
-/* ######################################3 */
-/* =========================================================
-   CARRUSEL — Mantener imágenes completas (1920x1080)
-   ========================================================= */
 
+/* carrusel: ocupa la izquierda */
 .slide .carrusel {
   position: relative;
   flex: 0 0 48%;
   max-width: 48%;
   min-width: 300px;
-  aspect-ratio: 16 / 9;       /* relación 1920x1080 */
-  max-width: 1920px;          /* límite superior opcional */
-  margin: 0 auto;
-  overflow: hidden;
-  background-color: #000;     /* fondo neutro (opcional) */
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* pista que contiene slides internas */
 .slide .carrusel-track {
   width: 100%;
   height: 100%;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
+/* cada "imagen" del carrusel */
 .slide .carrusel-slide {
   width: 100%;
   height: 100%;
@@ -176,42 +172,18 @@ body {
   transform: scale(1.02);
   transition: opacity 360ms ease, transform 360ms ease;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-.slide .carrusel-slide.is-active {
-  opacity: 1;
-  transform: scale(1);
-  position: relative;
-}
-
-/* 📸 Imagen sin recortes, escala completa */
 .slide .carrusel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;       /* ✅ mantiene proporción sin cortar */
-  object-position: center;
+  object-fit: cover;
   border-radius: 12px;
   display: block;
-  background-color: #000;    /* relleno negro detrás de la imagen */
 }
 
-/* 📱 Ajuste para móviles */
-@media (max-width: 768px) {
-  .slide .carrusel {
-    aspect-ratio: auto;      /* altura libre */
-    width: 92%;
-    height: auto;
-  }
-
-  .slide .carrusel-slide img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* ######################################3 */
 /* slide visible */
 .slide .carrusel-slide.is-active {
   opacity: 1;
@@ -253,31 +225,38 @@ body {
   text-align: left;
 }
 
-/* título y subtítulos */
+/* título */
 .slide .info .titulo {
-  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-size: clamp(2.2rem, 2.6vw, 3.2rem);
   font-weight: 700;
   margin-bottom: 1rem;
   color: #222;
 }
 
+/* Subtítulo */
 .slide .info .subtitulo {
   display: flex;
-  align-items: flex-start;
   gap: 0.8rem;
+  align-items: center;
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
 }
 
 /* flor/icono */
 .slide .info .subtitulo .flor {
-  font-size: 1.1rem;
+  font-size: clamp(1.2rem, 1.4vw, 1.6rem);
   margin-top: 2px;
+  margin-left: 1.5rem;
 }
 
-/* links estilo inline */
+/* URLs */
 .slide .info .links {
-  margin-left: 0.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  margin-left: 3rem;
 }
 
 .slide .info .links a {
@@ -320,6 +299,14 @@ body {
 
   .slide .info .subtitulo {
     justify-content: center;
+    margin-left: 0rem;
+    font-size: clamp(1.2rem, 1.4vw, 1.6rem);
+  }
+
+  .slide .info .links {
+    justify-content: center;
+    margin-left: 0rem;
+    font-size: clamp(1.2rem, 1.4vw, 1.6rem);
   }
 
   /* flecha permanece centrada */
@@ -329,10 +316,6 @@ body {
 }
 
 
-/**//**//**//**//**/
-
-
-/**/
 /* ======================== DIAPOSITIVA FINAL ======================== */
 #final {
   background: radial-gradient(circle at center, #f1ffe6 0%, #f9f7e0 60%, #f9f7e0 100%);
